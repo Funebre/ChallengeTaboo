@@ -23,4 +23,7 @@ import java.util.Random;
 
 public class RechercheTabou {
     
+	public RechercheTabou() {
+		System.out.println("Je suis une chibre !");
+	}
 }
