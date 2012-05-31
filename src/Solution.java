@@ -107,7 +107,11 @@ public class Solution {
 		}
 	}
 
-
+	//----------------------------------------
+	public double getEvaluation() {
+		return evaluation;
+	}
+	//----------------------------------------
 	public void setDeliverySequenceMT(Vector newListChargt1) { deliverySequenceMT = newListChargt1 ; }
 
 	//----------------------------------------
