@@ -1,0 +1,7 @@
+
+Version 0.02 (23/05/2012)
+Le cout et temps de transport des lots est constant quelle que soit la taille des lots transportés.
+
+Version 0.01 (14/05/2012)
+Pour lancer l'application test, qui charge et affiche une instance du challenge AG41 et 1 solution, faire :
+./runchallenge
