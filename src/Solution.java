@@ -77,13 +77,34 @@ public class Solution {
 	}
 
 
-
 	public void reset() {
 		deliverySequenceMT = new Vector() ;
 		productionSequenceMT = new Vector() ;
 		productionCompletionTimes = new double[slpb.getNp()] ;
 		productionStartingDates = new double[slpb.getNp()] ;
 		System.gc();
+	}
+	
+	public void randomize() {
+		int i = slpb.getNp();
+		int j;
+		
+		while(i != 0) {
+			Random r = new Random();
+			j = r.nextInt(i) + 1;
+			i -= j;
+			
+			addProductionLast(j);
+		}
+		
+		i = slpb.getNp();
+		while(i != 0) {
+			Random r = new Random();
+			j = r.nextInt(i) + 1;
+			i -= j;
+			
+			addDeliveryLast(j);
+		}
 	}
 
 

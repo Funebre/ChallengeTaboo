@@ -32,8 +32,11 @@ public class Main {
 		System.out.println("problem="+pb.toString()+"\n") ;
 		
 		Solution sol = new Solution(pb) ;
-		sol.setFromString("10/10") ;
+		/*sol.setFromString("1 3 6/3 3 4") ;
 		sol.evaluate() ;
-		System.out.println("solution="+sol.toString()) ;
+		System.out.println("solution="+sol.toString()) ;*/
+		sol.randomize();
+		sol.evaluate();
+		System.out.println(sol.toString());
    }
 }
