@@ -85,6 +85,7 @@ public class Solution {
 		System.gc();
 	}
 	
+	//Construction of a random solution
 	public void randomize() {
 		int i = slpb.getNp();
 		int j;
@@ -105,6 +106,8 @@ public class Solution {
 			
 			addDeliveryLast(j);
 		}
+		
+		System.out.println(productionSequenceMT + "|" + deliverySequenceMT);		
 	}
 
 	//----------------------------------------
