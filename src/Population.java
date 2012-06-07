@@ -6,7 +6,6 @@ public class Population {
 
 	private LinkedList<Solution> individuals;
 	private int pop_size;
-	private Problem pb;
 	
 	public Population(int size, Problem pb) {
 		this.pop_size = size;
@@ -44,6 +43,7 @@ public class Population {
 		return res;
 	}
 	
+	//Trier la population par ordre croissant de fitness
 	public void organize() {
 		_organize_quicksort(0, pop_size - 1);
 	}

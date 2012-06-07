@@ -28,19 +28,20 @@ public class Main {
 	
 	// ----------------------------------------
 	public static void main(String[] args) {
-		Problem pb = new Problem("data/problem-003-150.txt") ;
+		Problem pb = new Problem("data/problem-003-050.txt") ;
 		System.out.println("problem="+pb.toString()+"\n") ;
 		
 		Solution sol = new Solution(pb) ;
-		/*sol.setFromString("1 3 6/3 3 4") ;
-		sol.evaluate() ;
-		System.out.println("solution="+sol.toString()) ;*/
-		/*sol.randomize();
+		/*sol.setFromString("1 3 6 8 2/3 7 3 3 4");
+		sol.swapRandomBatches(sol.productionSequenceMT);
+		sol.swapRandomBatches(sol.deliverySequenceMT);
+		
 		System.out.println(sol.productionSequenceMT + "|" + sol.deliverySequenceMT);
-		sol.evaluate();
-		System.out.println(sol.toString());*/
 		
 		Population pop = new Population(600, pb);
+		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
+		
+		Population pop = new Population(1000, pb);
 		
 		sol = pop.get_best();
 		System.out.println(sol.toString());

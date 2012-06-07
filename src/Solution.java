@@ -107,7 +107,7 @@ public class Solution {
 			addDeliveryLast(j);
 		}
 		
-		System.out.println(productionSequenceMT + "|" + deliverySequenceMT + evaluate());		
+		System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());		
 	}
 
 	//----------------------------------------
@@ -218,25 +218,63 @@ public class Solution {
 	
 	//----------------------------------------
 	/**
-	 * Evolutionist algorithm : mutation
+	 * Evolutionist algorithm : mutations
 	 */
+	//swap two batches
+	public void swapTwoBatches(int i, int j, Vector batches) {
+		Object inter = batches.elementAt(i);
+		batches.set(i, batches.elementAt(j));
+		batches.set(j, inter);
+	}
 	
-	public void swap_production_batches(int i, int j) {
-		Object inter = productionSequenceMT.elementAt(i);
-		productionSequenceMT.set(i, productionSequenceMT.elementAt(j));
-		productionSequenceMT.set(j, inter);
+	//swapping two random batches	
+	public void swapRandomBatches(Vector batches) {
+		Random r = new Random();
+		int i = r.nextInt(batches.size());
+		int j = r.nextInt(batches.size());
+
+		swapTwoBatches(i, j, batches);
 		
 		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
 	}
 	
-	public void swap_delivery_batches(int i, int j) {
-		Object inter = deliverySequenceMT.elementAt(i);
-		deliverySequenceMT.set(i, deliverySequenceMT.elementAt(j));
-		deliverySequenceMT.set(j, inter);
+	//invert a sequence of production batches
+	public void reverseRandomBatchSequence (Vector batches) {
+		Random r = new Random();
+		int i = r.nextInt(batches.size());
+		int j = r.nextInt(batches.size());
 		
-		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
+		while(j<i)
+			j = r.nextInt(batches.size());
+		
+		int k = j-i;
+		int iter = 0;
+
+		while(k > 0) {
+			swapTwoBatches(i+iter, j-iter, batches);
+			iter++;
+			k-=2;
+		}
 	}
 	
+	//invert a sequence of delivery batches
+	/*public void reverse_delivery_batches () {
+		Random r = new Random();
+		int i = r.nextInt(deliverySequenceMT.size());
+		int j = r.nextInt(deliverySequenceMT.size());
+		
+		while(j<i)
+			j = r.nextInt(deliverySequenceMT.size());
+		
+		int k = j-i;
+		int iter = 0;
+
+		while(k > 0) {
+			swap_delivery_batches(i+iter, j-iter);
+			iter++;
+			k-=2;
+		}
+	}*/
 	
 	/**
 	 * check the sequence
