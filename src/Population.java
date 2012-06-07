@@ -15,12 +15,16 @@ public class Population {
 		while(i < size) {
 			Solution sol = new Solution(pb);
 			sol.randomize();
-			sol.evaluate();
+			
 			if(!alreadyPresent(sol)) {
 				individuals.add(sol);
 				i++;
 			}
+			
+			sol.evaluate();
 		}
+		
+		System.out.println("Organizing...");
 		organize();
 	}
 	
@@ -41,22 +45,44 @@ public class Population {
 	}
 	
 	public void organize() {
-		
-		//System.out.print(pop_size);
-		Solution inter;
-
-		for(int i=0; i<pop_size-1; i++)
-			for(int j=i+1; j<pop_size; j++)
-				if(individuals.get(i).evaluation > individuals.get(j).evaluation)
-				{
-					inter    = individuals.get(i);
-					individuals.set(i, individuals.get(j));
-					individuals.set(j, inter);
-				}
+		_organize_quicksort(0, pop_size - 1);
 	}
 	
+	public void _organize_quicksort(int debut, int fin) {
+		if (debut < fin) {
+			int indicePivot = _organize_partition(debut, fin);
+			_organize_quicksort(debut, indicePivot-1);
+			_organize_quicksort(indicePivot+1, fin);
+		}
+	}
+	
+	public int _organize_partition (int debut, int fin) {
+		Solution valeurPivot = individuals.get(debut);
+		int d = debut+1;
+		int f = fin;
+		Solution inter;
+		
+		while (d < f) {
+			while (d < f && individuals.get(f).evaluation >= valeurPivot.evaluation) f--;
+			while (d < f && individuals.get(d).evaluation <= valeurPivot.evaluation) d++;
+			
+			inter    = individuals.get(d);
+			individuals.set(d, individuals.get(f));
+			individuals.set(f, inter);
+			
+		}
+		
+		if (individuals.get(d).evaluation > valeurPivot.evaluation)
+			d--;
+		
+		individuals.set(debut, individuals.get(d));
+		individuals.set(d, valeurPivot);
+		
+		return d;
+	}
+	
+	
 	public Solution get_best() {
-		System.out.println("Organizing...");
 		System.out.println(individuals.getFirst().productionSequenceMT + "|" + individuals.getFirst().deliverySequenceMT);
 		return individuals.getFirst();
 	}

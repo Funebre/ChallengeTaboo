@@ -28,7 +28,7 @@ public class Main {
 	
 	// ----------------------------------------
 	public static void main(String[] args) {
-		Problem pb = new Problem("data/problem002-010.txt") ;
+		Problem pb = new Problem("data/problem-003-150.txt") ;
 		System.out.println("problem="+pb.toString()+"\n") ;
 		
 		Solution sol = new Solution(pb) ;
@@ -40,7 +40,7 @@ public class Main {
 		sol.evaluate();
 		System.out.println(sol.toString());*/
 		
-		Population pop = new Population(5, pb);
+		Population pop = new Population(600, pb);
 		
 		sol = pop.get_best();
 		System.out.println(sol.toString());
