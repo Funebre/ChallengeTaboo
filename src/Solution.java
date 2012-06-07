@@ -215,6 +215,20 @@ public class Solution {
 	public void delFirstProduction() { productionSequenceMT.remove(0) ;}
 	public void delAllProduction() { productionSequenceMT.removeAllElements() ;}
 
+	
+	//----------------------------------------
+	/**
+	 * Evolutionist algorithm : mutation
+	 */
+	
+	public void swap_batches(int i, int j) {
+		Object inter = productionSequenceMT.elementAt(i);
+		productionSequenceMT.set(i, productionSequenceMT.elementAt(j));
+		productionSequenceMT.set(j, inter);
+		
+		System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
+	}
+	
 	/**
 	 * check the sequence
 	 */

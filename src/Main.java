@@ -36,6 +36,7 @@ public class Main {
 		sol.evaluate() ;
 		System.out.println("solution="+sol.toString()) ;*/
 		sol.randomize();
+		sol.swap_batches(0, 1);
 		sol.evaluate();
 		System.out.println(sol.toString());
    }
