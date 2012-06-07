@@ -107,7 +107,7 @@ public class Solution {
 			addDeliveryLast(j);
 		}
 		
-		System.out.println(productionSequenceMT + "|" + deliverySequenceMT);		
+		System.out.println(productionSequenceMT + "|" + deliverySequenceMT + evaluate());		
 	}
 
 	//----------------------------------------
@@ -221,13 +221,22 @@ public class Solution {
 	 * Evolutionist algorithm : mutation
 	 */
 	
-	public void swap_batches(int i, int j) {
+	public void swap_production_batches(int i, int j) {
 		Object inter = productionSequenceMT.elementAt(i);
 		productionSequenceMT.set(i, productionSequenceMT.elementAt(j));
 		productionSequenceMT.set(j, inter);
 		
-		System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
+		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
 	}
+	
+	public void swap_delivery_batches(int i, int j) {
+		Object inter = deliverySequenceMT.elementAt(i);
+		deliverySequenceMT.set(i, deliverySequenceMT.elementAt(j));
+		deliverySequenceMT.set(j, inter);
+		
+		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
+	}
+	
 	
 	/**
 	 * check the sequence

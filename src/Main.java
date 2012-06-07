@@ -35,9 +35,14 @@ public class Main {
 		/*sol.setFromString("1 3 6/3 3 4") ;
 		sol.evaluate() ;
 		System.out.println("solution="+sol.toString()) ;*/
-		sol.randomize();
-		sol.swap_batches(0, 1);
+		/*sol.randomize();
+		System.out.println(sol.productionSequenceMT + "|" + sol.deliverySequenceMT);
 		sol.evaluate();
+		System.out.println(sol.toString());*/
+		
+		Population pop = new Population(5, pb);
+		
+		sol = pop.get_best();
 		System.out.println(sol.toString());
    }
 }
