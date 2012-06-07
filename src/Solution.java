@@ -90,7 +90,7 @@ public class Solution {
 		int i = slpb.getNp();
 		int j;
 		
-		while(i != 0) {
+		while (i != 0) {
 			Random r = new Random();
 			j = r.nextInt(i) + 1;
 			i -= j;
@@ -99,7 +99,7 @@ public class Solution {
 		}
 		
 		i = slpb.getNp();
-		while(i != 0) {
+		while (i != 0) {
 			Random r = new Random();
 			j = r.nextInt(i) + 1;
 			i -= j;
@@ -239,7 +239,7 @@ public class Solution {
 	}
 	
 	//invert a sequence of production batches
-	public void reverseRandomBatchSequence (Vector batches) {
+	public void reverseRandomBatchSequence(Vector batches) {
 		Random r = new Random();
 		int i = r.nextInt(batches.size());
 		int j = r.nextInt(batches.size());
@@ -250,15 +250,15 @@ public class Solution {
 		int k = j-i;
 		int iter = 0;
 
-		while(k > 0) {
+		while (k > 0) {
 			swapTwoBatches(i+iter, j-iter, batches);
 			iter++;
-			k-=2;
+			k -= 2;
 		}
 	}
 	
 	//invert a sequence of delivery batches
-	/*public void reverse_delivery_batches () {
+	/*public void reverse_delivery_batches() {
 		Random r = new Random();
 		int i = r.nextInt(deliverySequenceMT.size());
 		int j = r.nextInt(deliverySequenceMT.size());
@@ -497,7 +497,4 @@ public class Solution {
 				+ ", deliverySequenceMT=" + deliverySequenceMT
 				+ ", productionSequenceMT=" + productionSequenceMT + "]";
 	}
-
-
-
 } 

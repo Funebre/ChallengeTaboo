@@ -11,11 +11,11 @@ public class Population {
 		this.pop_size = size;
 		this.individuals = new LinkedList<Solution>();
 		int i = 0;
-		while(i < size) {
+		while (i < size) {
 			Solution sol = new Solution(pb);
 			sol.randomize();
 			
-			if(!alreadyPresent(sol)) {
+			if (!alreadyPresent(sol)) {
 				individuals.add(sol);
 				i++;
 			}
@@ -28,12 +28,11 @@ public class Population {
 	}
 	
 	public boolean alreadyPresent(Solution sol) {
-		
 		boolean res = false;
 		ListIterator<Solution> it = individuals.listIterator();
 		
-		while(it.hasNext() && !res) {
-			if(it == sol) {
+		while (it.hasNext() && !res) {
+			if (it == sol) {
 				res = true;
 			}	
 
@@ -56,7 +55,7 @@ public class Population {
 		}
 	}
 	
-	public int _organize_partition (int debut, int fin) {
+	public int _organize_partition(int debut, int fin) {
 		Solution valeurPivot = individuals.get(debut);
 		int d = debut+1;
 		int f = fin;
@@ -81,10 +80,8 @@ public class Population {
 		return d;
 	}
 	
-	
 	public Solution get_best() {
 		System.out.println(individuals.getFirst().productionSequenceMT + "|" + individuals.getFirst().deliverySequenceMT);
 		return individuals.getFirst();
 	}
-	
 }

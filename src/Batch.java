@@ -29,13 +29,10 @@ public class Batch {
 	/** 
 	 * Quantity of product
 	 */
-	protected	int quantity ;
-
-	/**
-	 * 
-	 */
+	protected int quantity ;
+	
 	public Batch(int q) { 
-		quantity=q;
+		quantity = q;
 	}
 	
 	
@@ -52,9 +49,7 @@ public class Batch {
 
 
 
-	public String toString () {
+	public String toString() {
 		return new String(""+quantity) ;
 	}
-	
-
 }
