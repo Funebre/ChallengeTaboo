@@ -16,8 +16,7 @@ public class Algorithme {
 		crossbreedLevel = cbLevel;
 		mutationLevel = mLevel;
 		pb = prob;
-		
-		Population pop = new Population(popSize, pb);
+		pop = new Population(popSize, pb);
 	}
 	
 	public Solution run() {
@@ -66,22 +65,22 @@ public class Algorithme {
 		
 		//production of father in newChild1
 		for (i = 0; i < father.getNumberOfProducedBatches(); ++i) {
-			newChild1.addProductionLast(father.getProductionBatch(i));
+			newChild1.addProductionLast(father.getProductionBatch(i).getQuantity());
 		}
 		
 		//delivery of father in newChild2
 		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
-			newChild2.addDeliveryLast(mother.getDeliveryBatch(i));
+			newChild2.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
 		}
 		
 		//production of mother in newChild2
 		for (i = 0; i < mother.getNumberOfProducedBatches(); ++i) {
-			newChild2.addProductionLast(mother.getProductionBatch(i));
+			newChild2.addProductionLast(mother.getProductionBatch(i).getQuantity());
 		}
 		
 		//delivery of mother in newChild1
 		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
-			newChild1.addDeliveryLast(mother.getDeliveryBatch(i));
+			newChild1.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
 		}
 		
 		

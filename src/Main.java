@@ -52,7 +52,8 @@ public class Main {
 		
 		//Population pop = new Population(10000, pb);
 		
-		Algorithme algo = new Algorithme(10000, 200, (float)0.5, (float)0.5, pb);
+		Algorithme algo = new Algorithme(100000, 2000, (float)0.5, (float)0.5, pb);
+		sol = algo.run();
 		
 		System.out.println(sol.toString());
 		
