@@ -238,13 +238,13 @@ public class Solution {
 		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT);
 	}
 	
-	//invert a sequence of production batches
+	//invert a sequence of batches
 	public void reverseRandomBatchSequence(Vector batches) {
 		Random r = new Random();
 		int i = r.nextInt(batches.size());
 		int j = r.nextInt(batches.size());
 		
-		while(j<i)
+		while (j<i)
 			j = r.nextInt(batches.size());
 		
 		int k = j-i;
@@ -257,24 +257,7 @@ public class Solution {
 		}
 	}
 	
-	//invert a sequence of delivery batches
-	/*public void reverse_delivery_batches() {
-		Random r = new Random();
-		int i = r.nextInt(deliverySequenceMT.size());
-		int j = r.nextInt(deliverySequenceMT.size());
-		
-		while(j<i)
-			j = r.nextInt(deliverySequenceMT.size());
-		
-		int k = j-i;
-		int iter = 0;
-
-		while(k > 0) {
-			swap_delivery_batches(i+iter, j-iter);
-			iter++;
-			k-=2;
-		}
-	}*/
+	//cross breed two solutions
 	
 	/**
 	 * check the sequence

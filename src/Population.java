@@ -15,7 +15,7 @@ public class Population {
 			Solution sol = new Solution(pb);
 			sol.randomize();
 			
-			if (!alreadyPresent(sol)) {
+			if (!isPresent(sol)) {
 				individuals.add(sol);
 				i++;
 			}
@@ -27,7 +27,7 @@ public class Population {
 		organize();
 	}
 	
-	public boolean alreadyPresent(Solution sol) {
+	public boolean isPresent(Solution sol) {
 		boolean res = false;
 		ListIterator<Solution> it = individuals.listIterator();
 		
@@ -40,6 +40,30 @@ public class Population {
 		}
 		
 		return res;
+	}
+	
+	public void findPosition(Solution sol) {
+		int rank = individuals.indexOf(sol);
+		Solution prev = individuals.get(rank - 1);
+		Solution next = individuals.get(rank + 1);
+		
+		boolean found = false;
+		 
+		if (prev.evaluation > sol.evaluation) {
+			Solution temp = sol;
+			sol = prev;
+			prev = temp;
+		} else if (next.evaluation < sol.evaluation) {
+			Solution temp = sol;
+			sol = next;
+			next = temp;
+		}
+		else
+			found = true;
+		
+		if (!found)
+			findPosition(sol);
+		
 	}
 	
 	//Trier la population par ordre croissant de fitness
