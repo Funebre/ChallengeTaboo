@@ -6,9 +6,14 @@ public class Population {
 
 	private LinkedList<Solution> individuals;
 	private int pop_size;
+	private Solution best;
 	
 	public Population(int size, Problem pb) {
 		this.pop_size = size;
+		best = new Solution(pb);
+		best.randomize();
+		best.evaluate();
+		System.out.println(best.toString());
 		this.individuals = new LinkedList<Solution>();
 		int i = 0;
 		while (i < size) {
@@ -21,10 +26,13 @@ public class Population {
 			}
 			
 			sol.evaluate();
+			if(sol.evaluation < best.evaluation) {
+				best = sol;
+			}
 		}
 		
 		System.out.println("Organizing...");
-		organize();
+		//organize();
 	}
 	
 	public boolean isPresent(Solution sol) {
@@ -42,28 +50,45 @@ public class Population {
 		return res;
 	}
 	
-	public void findPosition(Solution sol) {
-		int rank = individuals.indexOf(sol);
-		Solution prev = individuals.get(rank - 1);
-		Solution next = individuals.get(rank + 1);
-		
-		boolean found = false;
-		 
-		if (prev.evaluation > sol.evaluation) {
-			Solution temp = sol;
-			sol = prev;
-			prev = temp;
-		} else if (next.evaluation < sol.evaluation) {
-			Solution temp = sol;
-			sol = next;
-			next = temp;
+	public Solution getBest() {
+		return best;
+	}
+	
+	//Mettre un élément à sa place
+	public void findPosition(Solution sol,  int rank) {
+		//int rank = individuals.indexOf(sol);
+		if(rank < pop_size-2 && rank > 0) {
+			Solution prev = individuals.get(rank - 1);
+			Solution next = individuals.get(rank + 1);
+			//System.out.println(prev.toString());
+			
+			boolean found = false;
+			
+			if(rank != -1 && !found) {
+				if (prev.evaluation > sol.evaluation) {
+					Solution temp = sol;
+					sol = prev;
+					prev = temp;
+					System.out.println(rank);
+					findPosition(sol, rank - 1);
+					//System.out.println("Need to go left");
+				} else if (next.evaluation < sol.evaluation) {
+					Solution temp = sol;
+					sol = next;
+					next = temp;
+					System.out.println(rank);
+					findPosition(sol, rank + 1);
+					//System.out.println("Need to go right");
+				}
+				else
+					found = true;
+			}
 		}
-		else
-			found = true;
-		
-		if (!found)
-			findPosition(sol);
-		
+	}
+	
+	//Insérer un élément à un rang r
+	public void insertSolution(Solution sol, int r) {
+		individuals.add(r, sol);
 	}
 	
 	//Trier la population par ordre croissant de fitness
@@ -104,7 +129,7 @@ public class Population {
 		return d;
 	}
 	
-	public Solution get_best() {
+	public Solution getFirst() {
 		System.out.println(individuals.getFirst().productionSequenceMT + "|" + individuals.getFirst().deliverySequenceMT);
 		return individuals.getFirst();
 	}

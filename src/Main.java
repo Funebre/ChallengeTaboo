@@ -1,3 +1,5 @@
+import java.util.Random;
+
 /**
  * 
  *     This file is part of ag41-print12-challenge.
@@ -28,10 +30,16 @@ public class Main {
 	
 	// ----------------------------------------
 	public static void main(String[] args) {
-		Problem pb = new Problem("data/problem-003-050.txt") ;
+		Problem pb = new Problem("data/problem-001-200.txt") ;
 		System.out.println("problem="+pb.toString()+"\n") ;
 		
 		Solution sol = new Solution(pb) ;
+		Solution sol2 = new Solution(pb);
+		sol2.randomize();
+		
+		Random r = new Random();
+		
+		int rand = r.nextInt(1000);
 		/*sol.setFromString("1 3 6 8 2/3 7 3 3 4");
 		sol.swapRandomBatches(sol.productionSequenceMT);
 		sol.swapRandomBatches(sol.deliverySequenceMT);
@@ -41,9 +49,14 @@ public class Main {
 		Population pop = new Population(600, pb);
 		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
 		
-		Population pop = new Population(1000, pb);
+		Population pop = new Population(10000, pb);
 		
-		sol = pop.get_best();
+		
+		sol = pop.getBest();
 		System.out.println(sol.toString());
+		
+		
+		/*pop.insertSolution(sol2, rand);
+		pop.findPosition(sol2, rand);*/
    }
 }
