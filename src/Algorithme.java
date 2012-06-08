@@ -31,14 +31,18 @@ public class Algorithme {
 			Solution son1 = new Solution(pb);
 			Solution son2 = new Solution(pb);
 			
-			if(r.nextInt(100)/100 < crossbreedLevel*100) {
+			if(r.nextInt(100) < crossbreedLevel*100) {
 				crossbreed(father, mother, son1, son2);
 			}
 			
 			father = pop.getIndividuals().get(r.nextInt(popSize));
 			
-			if(r.nextInt(100)/100 < mutationLevel*100) {
+			if(r.nextInt(100) < mutationLevel*100) {
 				father.swapRandomBatches(father.productionSequenceMT);
+				
+				while(pop.isPresent(father))
+					father.swapRandomBatches(father.productionSequenceMT);
+				
 				father.evaluate();
 				if (father.evaluation < pop.getBest().evaluate()) 
 					pop.setBest(father);
