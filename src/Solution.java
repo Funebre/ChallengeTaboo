@@ -75,8 +75,7 @@ public class Solution {
 		deliverySequenceMT = new Vector() ;
 		productionSequenceMT = new Vector() ;
 	}
-
-
+	
 	public void reset() {
 		deliverySequenceMT = new Vector() ;
 		productionSequenceMT = new Vector() ;
@@ -181,8 +180,8 @@ public class Solution {
 	 * @param lot1
 	 * @param Delivery
 	 */
-	public void setDelivery(int lot1, Batch Delivery) {
-		deliverySequenceMT.set (lot1, Delivery) ;		
+	public void setDelivery(int lot1, Batch delivery) {
+		deliverySequenceMT.set (lot1, delivery) ;		
 	}
 
 	/**
@@ -192,7 +191,6 @@ public class Solution {
 	 */
 	public void addDelivery(int i, int qte) {
 		deliverySequenceMT.insertElementAt(new Batch(qte), i) ;
-
 	}
 
 
@@ -208,12 +206,13 @@ public class Solution {
 
 	public void setDelivery(int i, int j) { deliverySequenceMT.set(i, new Batch(j)) ; }
 
-	public void delDelivery(int lot1) { deliverySequenceMT.remove(lot1) ;	}
+	public void delDelivery(int lot1) { deliverySequenceMT.remove(lot1); }
 
 	//----------------------------------------
-	public void delFirstDelivery() { deliverySequenceMT.remove(0) ;}
-	public void delFirstProduction() { productionSequenceMT.remove(0) ;}
-	public void delAllProduction() { productionSequenceMT.removeAllElements() ;}
+	public void delFirstDelivery() { deliverySequenceMT.remove(0); }
+	public void delFirstProduction() { productionSequenceMT.remove(0); }
+	public void delAllProduction() { productionSequenceMT.removeAllElements(); }
+	public void delAllDelivery() { deliverySequenceMT.removeAllElements(); }
 
 	
 	//----------------------------------------
@@ -256,8 +255,6 @@ public class Solution {
 			k -= 2;
 		}
 	}
-	
-	//cross breed two solutions
 	
 	/**
 	 * check the sequence
