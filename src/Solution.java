@@ -106,7 +106,7 @@ public class Solution {
 			addDeliveryLast(j);
 		}
 		
-		System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());		
+		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());		
 	}
 
 	//----------------------------------------

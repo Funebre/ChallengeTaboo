@@ -1,19 +1,56 @@
+import java.util.Random;
+
 
 public class Algorithme {
 	
+	private Population pop;
 	private int nbGenerations;
 	private int popSize;
 	private double crossbreedLevel;
 	private double mutationLevel;
 	private Problem pb;
 	
-	public Algorithme(int nbG, int popul, int cbLevel, int mLevel, Problem pb) {
+	public Algorithme(int nbG, int popul, float cbLevel, float mLevel, Problem prob) {
 		nbGenerations = nbG;
 		popSize = popul;
 		crossbreedLevel = cbLevel;
 		mutationLevel = mLevel;
+		pb = prob;
 		
-		Population pop = new Population(10000, pb);
+		Population pop = new Population(popSize, pb);
+	}
+	
+	public Solution run() {
+		Solution sol = new Solution(pb);
+		
+		for(int i = 0; i<nbGenerations; i++) {
+			Random r = new Random();
+			Solution father = pop.getIndividuals().get(r.nextInt(popSize));
+			Solution mother = pop.getIndividuals().get(r.nextInt(popSize));
+			
+			Solution son1 = new Solution(pb);
+			Solution son2 = new Solution(pb);
+			
+			if(r.nextInt(100)/100 < crossbreedLevel*100) {
+				crossbreed(father, mother, son1, son2);
+			}
+			
+			father = pop.getIndividuals().get(r.nextInt(popSize));
+			
+			if(r.nextInt(100)/100 < mutationLevel*100) {
+				father.swapRandomBatches(father.productionSequenceMT);
+				father.evaluate();
+				if (father.evaluation < pop.getBest().evaluate()) 
+					pop.setBest(father);
+					
+			}
+				
+			
+		}
+		
+		sol = pop.getBest();
+		
+		return sol;
 	}
 
 	//cross breed two solutions

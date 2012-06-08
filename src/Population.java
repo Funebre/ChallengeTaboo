@@ -133,4 +133,12 @@ public class Population {
 		System.out.println(individuals.getFirst().productionSequenceMT + "|" + individuals.getFirst().deliverySequenceMT);
 		return individuals.getFirst();
 	}
+	
+	public LinkedList<Solution> getIndividuals() {
+		return individuals;
+	}
+
+	public void setBest(Solution newbest) {
+		best = newbest;		
+	}
 }

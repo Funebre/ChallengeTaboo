@@ -31,6 +31,7 @@ public class Main {
 	// ----------------------------------------
 	public static void main(String[] args) {
 		Problem pb = new Problem("data/problem-001-200.txt") ;
+		//Solution meilleure : 113429
 		System.out.println("problem="+pb.toString()+"\n") ;
 		
 		Solution sol = new Solution(pb) ;
@@ -49,10 +50,10 @@ public class Main {
 		Population pop = new Population(600, pb);
 		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
 		
-		Population pop = new Population(10000, pb);
+		//Population pop = new Population(10000, pb);
 		
+		Algorithme algo = new Algorithme(10000, 200, (float)0.5, (float)0.5, pb);
 		
-		sol = pop.getBest();
 		System.out.println(sol.toString());
 		
 		
