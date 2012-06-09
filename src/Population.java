@@ -18,7 +18,7 @@ public class Population {
 		int i = 0;
 		while (i < size) {
 			Solution sol = new Solution(pb);
-			sol.randomize();
+			sol.randomizeisback();
 			
 			if (!isPresent(sol)) {
 				individuals.add(sol);
@@ -51,7 +51,7 @@ public class Population {
 		return best;
 	}
 	
-	//Mettre un élément à sa place
+	//Mettre un ÃˆlÃˆment â€¡ sa place
 	public void findPosition(Solution sol,  int rank) {
 		//int rank = individuals.indexOf(sol);
 		if(rank < pop_size-2 && rank > 0) {
@@ -83,7 +83,7 @@ public class Population {
 		}
 	}
 	
-	//Insérer un élément à un rang r
+	//InsÃˆrer un ÃˆlÃˆment â€¡ un rang r
 	public void insertSolution(Solution sol, int r) {
 		individuals.add(r, sol);
 	}

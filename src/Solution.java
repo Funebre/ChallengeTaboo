@@ -106,7 +106,41 @@ public class Solution {
 			addDeliveryLast(j);
 		}
 		
-		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());		
+		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
+	}
+	
+	public void randomizeisback() {
+		int nb = slpb.getNp();
+		int i, j, q;
+		Random r = new Random();
+		
+		j = 0;
+		q = nb / 4;
+		while (j < nb) {
+			i = r.nextInt(q + r.nextInt(q)) + 1;
+			
+			if (j + i > nb) {
+				i = nb - j;
+			}
+			
+			addProductionLast(i);
+			j += i;
+		}
+		
+		j = 0;
+		q = nb / 5;
+		while (j < nb) {
+			i = r.nextInt(q + r.nextInt(q)) + 1;
+			
+			if (j + i > nb) {
+				i = nb - j;
+			}
+			
+			addDeliveryLast(i);
+			j += i;
+		}
+		
+		System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
 	}
 
 	//----------------------------------------
@@ -277,7 +311,7 @@ public class Solution {
 		}
 		
 		if (getNumberOfDeliveredParts() < slpb.getNp()) {
-			System.out.println ("ERROR : On n'a pas livré assez de produits ! Le client sera mécontent");
+			System.out.println ("ERROR : On n'a pas livrÃˆ assez de produits ! Le client sera mÃˆcontent");
 			return false;
 		}
 		

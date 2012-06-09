@@ -57,18 +57,20 @@ public class Main {
 		
 		//Population pop = new Population(10000, pb);
 		int i = 0;
-		for(i=0; i<10; i++) {
-			algo = new Algorithme(50000, 200, (float)0.5, (float)0.3, pb);
+		//for (i=0; i<10; i++) {
+			algo = new Algorithme(10000, 700, (float)0.2, (float)0.5, pb);
 			sol = algo.run();
 			
 			/*algo = new Algorithme(20000, pb);
 			sol = algo.getPop().getBest();*/
 			
-			if(sol.evaluation < best.evaluation)
+			if (sol.evaluation < best.evaluation)
 				best = sol;
-		}
+		//}
 	
-		System.out.println("Meilleure solution : " + best.toString());
+		//System.out.println("Meilleure solution : " + best.toString());
+		System.out.println("Meilleure solution : " + best.evaluation);
+		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println((endTime - beginTime)/1000 + " secondes pour " + i + " iterations.");

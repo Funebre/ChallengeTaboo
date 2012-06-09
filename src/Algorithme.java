@@ -34,19 +34,20 @@ public class Algorithme {
 		while (i < nbGenerations) {
 			Random r = new Random();
 			
-			if(r.nextInt(100) < crossbreedLevel*100) {
+			if (r.nextInt(100) < crossbreedLevel*100) {
 				
-				//Ces affectations sont très longues à cause des get
+				//Ces affectations sont trÃ‹s longues â€¡ cause des get
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
 				Solution mother = pop.getIndividuals().get(r.nextInt(popSize));
 							
 				crossbreedProduction(father, mother);
 			}
 			
-			if(r.nextInt(100) < mutationLevel*100) {			
+			if (r.nextInt(100) < mutationLevel*100) {			
 				//long (environ 6 secondes)
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
-				father.swapRandomBatches(father.productionSequenceMT);
+				father.reverseRandomBatchSequence(father.productionSequenceMT);
+				father.reverseRandomBatchSequence(father.deliverySequenceMT);
 				
 				//long (environ 5 secondes)
 				/*while(pop.isPresent(father))
