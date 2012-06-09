@@ -140,7 +140,7 @@ public class Solution {
 			j += i;
 		}
 		
-		System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
+		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
 	}
 
 	//----------------------------------------

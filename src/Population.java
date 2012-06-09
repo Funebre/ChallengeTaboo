@@ -19,15 +19,21 @@ public class Population {
 		while (i < size) {
 			Solution sol = new Solution(pb);
 			sol.randomizeisback();
+			Solution sol2 = new Solution(pb);
+			sol2.randomize();
 			
-			if (!isPresent(sol)) {
-				individuals.add(sol);
+			if (!isPresent(sol) && !isPresent(sol2)) {
+				if(sol.evaluate() < sol2.evaluate()) {
+					individuals.add(sol);
+					if(sol.evaluation < best.evaluation)
+						best = sol;
+				}
+				else {
+					individuals.add(sol2);
+					if(sol2.evaluation < best.evaluation)
+					best = sol2;
+				}
 				i++;
-			}
-			
-			sol.evaluate();
-			if(sol.evaluation < best.evaluation) {
-				best = sol;
 			}
 		}
 	}

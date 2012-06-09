@@ -56,9 +56,11 @@ public class Main {
 		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
 		
 		//Population pop = new Population(10000, pb);
-		int i = 0;
-		//for (i=0; i<10; i++) {
-			algo = new Algorithme(10000, 700, (float)0.2, (float)0.5, pb);
+		int unchanged = 0;
+		/*int i = 0;
+		for (i=0; i<10; i++) {*/
+		while(unchanged < 50) {
+			algo = new Algorithme(10000, 200, (float)0.5, (float)0.5, pb);
 			sol = algo.run();
 			
 			/*algo = new Algorithme(20000, pb);
@@ -66,14 +68,16 @@ public class Main {
 			
 			if (sol.evaluation < best.evaluation)
 				best = sol;
-		//}
+			else
+				unchanged++;
+		}
 	
 		//System.out.println("Meilleure solution : " + best.toString());
 		System.out.println("Meilleure solution : " + best.evaluation);
 		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
 		
 		long endTime = System.currentTimeMillis();
-		System.out.println((endTime - beginTime)/1000 + " secondes pour " + i + " iterations.");
+		System.out.println((endTime - beginTime)/1000 + " seconds, stopped after " + unchanged + " stale iterations.");
 		
 		/*pop.insertSolution(sol2, rand);
 		pop.findPosition(sol2, rand);*/
