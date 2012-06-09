@@ -115,6 +115,7 @@ public class Solution {
 	}
 	//----------------------------------------
 	public void setDeliverySequenceMT(Vector newListChargt1) { deliverySequenceMT = newListChargt1 ; }
+	public void setProductionSequenceMT(Vector newListChargt1) { productionSequenceMT = newListChargt1 ; }
 
 	//----------------------------------------
 	public int getNumberOfDeliveredBatches(){ return deliverySequenceMT.size(); }

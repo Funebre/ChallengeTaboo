@@ -13,7 +13,7 @@ public class Population {
 		best = new Solution(pb);
 		best.randomize();
 		best.evaluate();
-		System.out.println(best.toString());
+		//System.out.println(best.toString());
 		this.individuals = new LinkedList<Solution>();
 		int i = 0;
 		while (i < size) {
@@ -30,9 +30,6 @@ public class Population {
 				best = sol;
 			}
 		}
-		
-		System.out.println("Organizing...");
-		//organize();
 	}
 	
 	public boolean isPresent(Solution sol) {

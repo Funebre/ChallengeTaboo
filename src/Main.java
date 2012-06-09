@@ -30,17 +30,22 @@ public class Main {
 	
 	// ----------------------------------------
 	public static void main(String[] args) {
-		Problem pb = new Problem("data/problem-001-200.txt") ;
-		//Solution meilleure : 113429
-		System.out.println("problem="+pb.toString()+"\n") ;
 		
-		Solution sol = new Solution(pb) ;
-		Solution sol2 = new Solution(pb);
-		sol2.randomize();
+		long beginTime = System.currentTimeMillis(); 
 		
-		Random r = new Random();
+		Problem pb = new Problem("data/problem-001-200.txt");
+		//Solution acceptable < 100 000
+		//System.out.println("problem="+pb.toString()+"\n");
 		
-		int rand = r.nextInt(1000);
+		Solution sol = new Solution(pb);
+		//Solution sol2 = new Solution(pb);
+		
+		Solution best = sol;
+		best.randomize();
+		best.evaluate();
+		
+		Algorithme algo = new Algorithme(1, pb);
+		
 		/*sol.setFromString("1 3 6 8 2/3 7 3 3 4");
 		sol.swapRandomBatches(sol.productionSequenceMT);
 		sol.swapRandomBatches(sol.deliverySequenceMT);
@@ -51,12 +56,22 @@ public class Main {
 		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
 		
 		//Population pop = new Population(10000, pb);
+		int i = 0;
+		for(i=0; i<10; i++) {
+			algo = new Algorithme(50000, 200, (float)0.5, (float)0.3, pb);
+			sol = algo.run();
+			
+			/*algo = new Algorithme(20000, pb);
+			sol = algo.getPop().getBest();*/
+			
+			if(sol.evaluation < best.evaluation)
+				best = sol;
+		}
+	
+		System.out.println("Meilleure solution : " + best.toString());
 		
-		Algorithme algo = new Algorithme(100000, 2000, (float)0.5, (float)0.5, pb);
-		sol = algo.run();
-		
-		System.out.println(sol.toString());
-		
+		long endTime = System.currentTimeMillis();
+		System.out.println((endTime - beginTime)/1000 + " secondes pour " + i + " iterations.");
 		
 		/*pop.insertSolution(sol2, rand);
 		pop.findPosition(sol2, rand);*/
