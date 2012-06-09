@@ -76,10 +76,23 @@ public class Solution {
 		productionSequenceMT = new Vector() ;
 	}
 	
+	public Solution(Solution sol) {
+		slpb = sol.slpb;
+		productionCompletionTimes = new double[slpb.getNp()];
+		transportationCompletionTimes = new double[slpb.getNp()];
+		productionStartingDates = new double[slpb.getNp()];
+
+		deliverySequenceMT = sol.deliverySequenceMT;
+		productionSequenceMT = sol.productionSequenceMT;
+		
+		evaluate();
+	}
+	
 	public void reset() {
 		deliverySequenceMT = new Vector() ;
 		productionSequenceMT = new Vector() ;
 		productionCompletionTimes = new double[slpb.getNp()] ;
+		transportationCompletionTimes = new double[slpb.getNp()];
 		productionStartingDates = new double[slpb.getNp()] ;
 		System.gc();
 	}

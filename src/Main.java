@@ -46,34 +46,22 @@ public class Main {
 		
 		Algorithme algo = new Algorithme(1, pb);
 		
-		/*sol.setFromString("1 3 6 8 2/3 7 3 3 4");
-		sol.swapRandomBatches(sol.productionSequenceMT);
-		sol.swapRandomBatches(sol.deliverySequenceMT);
-		
-		System.out.println(sol.productionSequenceMT + "|" + sol.deliverySequenceMT);
-		
-		Population pop = new Population(600, pb);
-		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
-		
-		//Population pop = new Population(10000, pb);
-		int i = 0;
-		for(i=0; i<10; i++) {
-			algo = new Algorithme(50000, 200, (float)0.5, (float)0.3, pb);
+		int unchanged = 0;
+		while(unchanged < 100) {
+			algo = new Algorithme(2000, 1000, (float)0.5, (float)0.3, pb);
 			sol = algo.run();
 			
-			/*algo = new Algorithme(20000, pb);
-			sol = algo.getPop().getBest();*/
-			
-			if(sol.evaluation < best.evaluation)
+			if(sol.evaluation < best.evaluation) {
 				best = sol;
+				unchanged = 0;
+			}
+			else 
+				unchanged++;
 		}
 	
 		System.out.println("Meilleure solution : " + best.toString());
 		
 		long endTime = System.currentTimeMillis();
-		System.out.println((endTime - beginTime)/1000 + " secondes pour " + i + " iterations.");
-		
-		/*pop.insertSolution(sol2, rand);
-		pop.findPosition(sol2, rand);*/
+		System.out.println((endTime - beginTime) + " millisecondes");
    }
 }

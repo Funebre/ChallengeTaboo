@@ -10,25 +10,24 @@ public class Population {
 	
 	public Population(int size, Problem pb) {
 		this.pop_size = size;
+		
 		best = new Solution(pb);
 		best.randomize();
 		best.evaluate();
-		//System.out.println(best.toString());
+		
 		this.individuals = new LinkedList<Solution>();
+		
 		int i = 0;
 		while (i < size) {
 			Solution sol = new Solution(pb);
 			sol.randomize();
-			
-			if (!isPresent(sol)) {
-				individuals.add(sol);
-				i++;
-			}
-			
 			sol.evaluate();
+			individuals.addFirst(sol);
+			
 			if(sol.evaluation < best.evaluation) {
 				best = sol;
 			}
+			i++;
 		}
 	}
 	
@@ -53,11 +52,9 @@ public class Population {
 	
 	//Mettre un élément à sa place
 	public void findPosition(Solution sol,  int rank) {
-		//int rank = individuals.indexOf(sol);
 		if(rank < pop_size-2 && rank > 0) {
 			Solution prev = individuals.get(rank - 1);
 			Solution next = individuals.get(rank + 1);
-			//System.out.println(prev.toString());
 			
 			boolean found = false;
 			
@@ -68,14 +65,12 @@ public class Population {
 					prev = temp;
 					System.out.println(rank);
 					findPosition(sol, rank - 1);
-					//System.out.println("Need to go left");
 				} else if (next.evaluation < sol.evaluation) {
 					Solution temp = sol;
 					sol = next;
 					next = temp;
 					System.out.println(rank);
 					findPosition(sol, rank + 1);
-					//System.out.println("Need to go right");
 				}
 				else
 					found = true;
