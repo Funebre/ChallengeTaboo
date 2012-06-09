@@ -28,7 +28,6 @@ public class Algorithme {
 	}
 	
 	public Solution run() {
-		//System.out.println("Running evolutionnary algorithm, vive Darwin...");
 		Solution sol = new Solution(pb);
 		int i = 0;
 		while (i < nbGenerations) {
@@ -36,23 +35,29 @@ public class Algorithme {
 			
 			if (r.nextInt(100) < crossbreedLevel*100) {
 				
-				//Ces affectations sont trËs longues ‡ cause des get
+				//Utilisation de la selection au hasard
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
 				Solution mother = pop.getIndividuals().get(r.nextInt(popSize));
+				
+				//Utilisation de la selection par roulette
+				/*Solution father = pop.rouletteSelection();
+				Solution mother = pop.rouletteSelection();*/
 							
 				crossbreedProduction(father, mother);
+				crossbreedDelivery(father, mother);
 			}
 			
 			if (r.nextInt(100) < mutationLevel*100) {			
 				//long (environ 6 secondes)
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
-				father.reverseRandomBatchSequence(father.productionSequenceMT);
-				father.reverseRandomBatchSequence(father.deliverySequenceMT);
-				
-				//long (environ 5 secondes)
-				/*while(pop.isPresent(father))
-					father.swapRandomBatches(father.productionSequenceMT);*/
-				
+				//if(r.nextInt(100) < 50) {
+					father.reverseRandomBatchSequence(father.productionSequenceMT);
+					father.reverseRandomBatchSequence(father.deliverySequenceMT);
+				//} 
+				/*else { //Ne marche pas encore
+					father.mutation(father.productionSequenceMT);
+					father.mutation(father.deliverySequenceMT);
+				}*/
 				
 				if (father.evaluate() < pop.getBest().evaluate()) 
 					pop.setBest(father);
@@ -81,20 +86,10 @@ public class Algorithme {
 			newChild1.addProductionLast(father.getProductionBatch(i).getQuantity());
 		}
 		
-		/*//delivery of father in newChild2
-		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
-			newChild2.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
-		}*/
-		
 		//production of mother in newChild2
 		for (i = 0; i < mother.getNumberOfProducedBatches(); ++i) {
 			newChild2.addProductionLast(mother.getProductionBatch(i).getQuantity());
 		}
-		
-		/*//delivery of mother in newChild1
-		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
-			newChild1.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
-		}*/
 		
 		//check if newChild1 and newChild2 are not in population, if the're better solutions than their parents, replace
 		/*if ( ! pop.isPresent(newChild1)) {*/
@@ -115,43 +110,30 @@ public class Algorithme {
 	public void crossbreedDelivery(Solution father, Solution mother)
 	{
 		Solution newChild1 = new Solution(pb);
+		newChild1.setProductionSequenceMT(mother.productionSequenceMT);
 		Solution newChild2 = new Solution(pb);
+		newChild2.setProductionSequenceMT(father.productionSequenceMT); 
+
 		int i;
-		
-		/*//production of father in newChild1
-		for (i = 0; i < father.getNumberOfProducedBatches(); ++i) {
-			newChild1.addProductionLast(father.getProductionBatch(i).getQuantity());
-		}*/
-		
-		//delivery of father in newChild2
+		//delivery of mother in newChild2
 		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
 			newChild2.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
 		}
-		
-		/*//production of mother in newChild2
-		for (i = 0; i < mother.getNumberOfProducedBatches(); ++i) {
-			newChild2.addProductionLast(mother.getProductionBatch(i).getQuantity());
-		}*/
-		
-		//delivery of mother in newChild1
-		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
-			newChild1.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
+		//delivery of father in newChild1
+		for (i = 0; i < father.getNumberOfDeliveredBatches(); ++i) {
+			newChild1.addDeliveryLast(father.getDeliveryBatch(i).getQuantity());
 		}
 		
-		//check if newChild1 and newChild2 are not in population, if the're better solutions than their parents, replace
-		/*if ( ! pop.isPresent(newChild1)) {*/
-			if (newChild1.evaluate() < pop.getBest().evaluation) {
-				pop.setBest(newChild1);
-				father = newChild1;
-			}
-		/*}*/
+		//check if newChild1 and newChild2 are better solutions than their parents, if so, replace
+		if (newChild1.evaluate() < pop.getBest().evaluation) {
+			pop.setBest(newChild1);
+			father = newChild1;
+		}
 		
-		/*if ( ! pop.isPresent(newChild2)) {*/
-			if (newChild2.evaluate() < pop.getBest().evaluation) {
-				pop.setBest(newChild2);
-				mother = newChild2;
-			}
-		/*}*/		
+		if (newChild2.evaluate() < pop.getBest().evaluation) {
+			pop.setBest(newChild2);
+			mother = newChild2;
+		}		
 	}
 	
 	

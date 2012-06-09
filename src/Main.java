@@ -33,12 +33,9 @@ public class Main {
 		
 		long beginTime = System.currentTimeMillis(); 
 		
-		Problem pb = new Problem("data/problem-001-200.txt");
-		//Solution acceptable < 100 000
-		//System.out.println("problem="+pb.toString()+"\n");
+		Problem pb = new Problem("data/problem-003-200.txt");
 		
 		Solution sol = new Solution(pb);
-		//Solution sol2 = new Solution(pb);
 		
 		Solution best = sol;
 		best.randomize();
@@ -46,40 +43,23 @@ public class Main {
 		
 		Algorithme algo = new Algorithme(1, pb);
 		
-		/*sol.setFromString("1 3 6 8 2/3 7 3 3 4");
-		sol.swapRandomBatches(sol.productionSequenceMT);
-		sol.swapRandomBatches(sol.deliverySequenceMT);
-		
-		System.out.println(sol.productionSequenceMT + "|" + sol.deliverySequenceMT);
-		
-		Population pop = new Population(600, pb);
-		sol.reverseRandomBatchSequence(sol.productionSequenceMT);*/
-		
-		//Population pop = new Population(10000, pb);
 		int unchanged = 0;
 		/*int i = 0;
 		for (i=0; i<10; i++) {*/
 		while(unchanged < 50) {
-			algo = new Algorithme(10000, 200, (float)0.5, (float)0.5, pb);
+			algo = new Algorithme(10000, 150, (float)0.7, (float)0.4, pb);
 			sol = algo.run();
-			
-			/*algo = new Algorithme(20000, pb);
-			sol = algo.getPop().getBest();*/
 			
 			if (sol.evaluation < best.evaluation)
 				best = sol;
 			else
 				unchanged++;
 		}
-	
-		//System.out.println("Meilleure solution : " + best.toString());
+		
 		System.out.println("Meilleure solution : " + best.evaluation);
 		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println((endTime - beginTime)/1000 + " seconds, stopped after " + unchanged + " stale iterations.");
-		
-		/*pop.insertSolution(sol2, rand);
-		pop.findPosition(sol2, rand);*/
    }
 }

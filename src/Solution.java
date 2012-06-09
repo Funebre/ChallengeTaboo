@@ -291,6 +291,17 @@ public class Solution {
 		}
 	}
 	
+	//specialized mutation (qu ne marche pas ^^)
+	public void mutation(Vector<Batch> batches) {
+		Random r = new Random();
+		int rand1 = r.nextInt(batches.size());
+		int rand2 = r.nextInt(batches.size());
+		
+		batches.set(rand1, new Batch(batches.get(rand1).getQuantity() + batches.get(rand2).getQuantity()));
+		
+		batches.remove(rand2);
+	}
+	
 	/**
 	 * check the sequence
 	 */

@@ -1,15 +1,18 @@
 import java.util.LinkedList;
 import java.util.ListIterator;
+import java.util.Random;
 
 
 public class Population {
 
 	private LinkedList<Solution> individuals;
-	private int pop_size;
+	private int popSize;
 	private Solution best;
+	private Problem pb;
 	
-	public Population(int size, Problem pb) {
-		this.pop_size = size;
+	public Population(int size, Problem prob) {
+		popSize = size;
+		pb = prob;
 		best = new Solution(pb);
 		best.randomize();
 		best.evaluate();
@@ -60,7 +63,7 @@ public class Population {
 	//Mettre un ÈlÈment ‡ sa place
 	public void findPosition(Solution sol,  int rank) {
 		//int rank = individuals.indexOf(sol);
-		if(rank < pop_size-2 && rank > 0) {
+		if(rank < popSize-2 && rank > 0) {
 			Solution prev = individuals.get(rank - 1);
 			Solution next = individuals.get(rank + 1);
 			//System.out.println(prev.toString());
@@ -94,9 +97,36 @@ public class Population {
 		individuals.add(r, sol);
 	}
 	
+	public Solution rouletteSelection() {
+		Solution sol = new Solution(pb);
+		Random r = new Random();
+		double totalFitness = individuals.getFirst().evaluation;
+		double minFitness = totalFitness;
+		double portionSum;
+		
+		for(int i = 0; i<popSize; i++) {
+			totalFitness += individuals.get(i).evaluation;
+			if (minFitness < individuals.get(i).evaluation)
+				minFitness = individuals.get(i).evaluation;
+		}
+		
+		portionSum = minFitness*popSize - totalFitness;
+		
+		double rand = r.nextDouble();
+
+		int ind = 0;
+		double portion = (minFitness - individuals.getFirst().evaluation)*1./portionSum;
+		while ((ind<popSize-1) && (rand>=portion))
+		{
+			ind++;
+			portion += (minFitness - individuals.get(ind).evaluation)*1./portionSum;
+		}
+		return individuals.get(ind);
+	}
+	
 	//Trier la population par ordre croissant de fitness
 	public void organize() {
-		_organize_quicksort(0, pop_size - 1);
+		_organize_quicksort(0, popSize - 1);
 	}
 	
 	public void _organize_quicksort(int debut, int fin) {
