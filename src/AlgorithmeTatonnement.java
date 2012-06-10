@@ -40,13 +40,20 @@ public class AlgorithmeTatonnement {
 			//Subtract 1 from the i-th batch
 			int k = sol.getProductionBatchSize(i);
 			//System.out.println("Quantity in batch to decrement : " + k);
-			if (k == 1) {
-				temp.delProduction(i);
-				k = r.nextInt(size - 1);
+			if (size == 1) {
+				temp.setProductionBatchSize(i, k - 1);
+				temp.addProductionLast(0);
+				k = 1;
 			}
 			else {
-				temp.setProductionBatchSize(i, k - 1);
-				while ((k = r.nextInt(size)) == i);
+				if (k == 1) {
+					temp.delProduction(i);
+					k = r.nextInt(size - 1);
+				}
+				else {
+					temp.setProductionBatchSize(i, k - 1);
+					while ((k = r.nextInt(size)) == i);
+				}
 			}
 			
 			//Add it to another batch
@@ -79,13 +86,20 @@ public class AlgorithmeTatonnement {
 			//Subtract 1 from the i-th batch
 			int k = sol.getDeliveryBatchSize(i);
 			//System.out.println("Quantity in batch to decrement : " + k);
-			if (k == 1) {
-				temp.delDelivery(i);
-				k = r.nextInt(size - 1);
+			if (size == 1) {
+				temp.setDeliveryBatchSize(i, k - 1);
+				temp.addDeliveryLast(0);
+				k = 1;
 			}
 			else {
-				temp.setDeliveryBatchSize(i, k - 1);
-				while ((k = r.nextInt(size)) == i);
+				if (k == 1) {
+					temp.delDelivery(i);
+					k = r.nextInt(size - 1);
+				}
+				else {
+					temp.setDeliveryBatchSize(i, k - 1);
+					while ((k = r.nextInt(size)) == i);
+				}
 			}
 			
 			//Add it to another batch
