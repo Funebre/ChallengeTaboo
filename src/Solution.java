@@ -76,6 +76,19 @@ public class Solution {
 		productionSequenceMT = new Vector<Batch>() ;
 	}
 	
+	public Solution(Solution sol) {
+		slpb = sol.slpb;
+		productionCompletionTimes = new double[slpb.getNp()];
+		transportationCompletionTimes = new double[slpb.getNp()];
+		productionStartingDates = new double[slpb.getNp()];
+		
+		deliverySequenceMT = new Vector<Batch>();
+		productionSequenceMT = new Vector<Batch>();
+		
+		deliverySequenceMT = (Vector<Batch>)sol.deliverySequenceMT.clone();
+		productionSequenceMT = (Vector<Batch>)sol.productionSequenceMT.clone();
+	}
+	
 	public void reset() {
 		deliverySequenceMT = new Vector<Batch>() ;
 		productionSequenceMT = new Vector<Batch>() ;
@@ -245,14 +258,15 @@ public class Solution {
 	 * @param j = quantity of delivered parts
 	 * @param tr = transporteur
 	 */
-	public void addDeliveryFirst(int j) { deliverySequenceMT.add(0, new Batch(j)) ; }
-	public void addProductionFirst(int j) { productionSequenceMT.add(0, new Batch(j)) ; }
-	public void addProductionLast(int j) { productionSequenceMT.add(new Batch(j));}
-	public void addDeliveryLast(int i) { deliverySequenceMT.add(new Batch(i)) ; }
+	public void addDeliveryFirst(int j) { deliverySequenceMT.add(0, new Batch(j)); }
+	public void addProductionFirst(int j) { productionSequenceMT.add(0, new Batch(j)); }
+	public void addProductionLast(int j) { productionSequenceMT.add(new Batch(j)); }
+	public void addDeliveryLast(int i) { deliverySequenceMT.add(new Batch(i)); }
 
 	public void setDelivery(int i, int j) { deliverySequenceMT.set(i, new Batch(j)) ; }
 
 	public void delDelivery(int lot1) { deliverySequenceMT.remove(lot1); }
+	public void delProduction(int i) { productionSequenceMT.remove(i); }
 
 	//----------------------------------------
 	public void delFirstDelivery() { deliverySequenceMT.remove(0); }

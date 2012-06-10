@@ -33,7 +33,7 @@ public class Main {
 		
 		long beginTime = System.currentTimeMillis(); 
 		
-		Problem pb = new Problem("data/problem-001-200.txt");
+		Problem pb = new Problem("data/problem-001-100.txt");
 		
 		Solution sol = new Solution(pb);
 
@@ -75,7 +75,7 @@ public class Main {
 			optimum.copy(hc.getBestNeighbour(best));
 			optimum.evaluate();
 			
-			if(optimum.evaluation < best.evaluation) {
+			if (optimum.evaluation < best.evaluation) {
 				System.out.println("Found better ! " + optimum.evaluation);
 			}
 			else {
