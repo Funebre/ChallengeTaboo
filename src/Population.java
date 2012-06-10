@@ -125,45 +125,7 @@ public class Population {
 		}
 		return individuals.get(ind);
 	}
-	
-	//Trier la population par ordre croissant de fitness
-	public void organize() {
-		_organize_quicksort(0, popSize - 1);
-	}
-	
-	public void _organize_quicksort(int debut, int fin) {
-		if (debut < fin) {
-			int indicePivot = _organize_partition(debut, fin);
-			_organize_quicksort(debut, indicePivot-1);
-			_organize_quicksort(indicePivot+1, fin);
-		}
-	}
-	
-	public int _organize_partition(int debut, int fin) {
-		Solution valeurPivot = individuals.get(debut);
-		int d = debut+1;
-		int f = fin;
-		Solution inter;
 		
-		while (d < f) {
-			while (d < f && individuals.get(f).evaluation >= valeurPivot.evaluation) f--;
-			while (d < f && individuals.get(d).evaluation <= valeurPivot.evaluation) d++;
-			
-			inter    = individuals.get(d);
-			individuals.set(d, individuals.get(f));
-			individuals.set(f, inter);
-			
-		}
-		
-		if (individuals.get(d).evaluation > valeurPivot.evaluation)
-			d--;
-		
-		individuals.set(debut, individuals.get(d));
-		individuals.set(d, valeurPivot);
-		
-		return d;
-	}
-	
 	public Solution getFirst() {
 		System.out.println(individuals.getFirst().productionSequenceMT + "|" + individuals.getFirst().deliverySequenceMT);
 		return individuals.getFirst();
