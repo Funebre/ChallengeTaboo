@@ -33,21 +33,19 @@ public class Main {
 		
 		long beginTime = System.currentTimeMillis(); 
 		
-		Problem pb = new Problem("data/problem-003-200.txt");
+		Problem pb = new Problem("data/problem-001-200.txt");
 		
 		Solution sol = new Solution(pb);
+
+		AlgorithmeEvolutionnaire algo = new AlgorithmeEvolutionnaire(1, pb);
 		
-		Solution best = sol;
-		best.randomize();
+		Solution best = algo.run();
+		
 		best.evaluate();
 		
-		Algorithme algo = new Algorithme(1, pb);
-		
 		int unchanged = 0;
-		/*int i = 0;
-		for (i=0; i<10; i++) {*/
-		while(unchanged < 50) {
-			algo = new Algorithme(10000, 150, (float)0.7, (float)0.4, pb);
+		while(unchanged < 10) {
+			algo = new AlgorithmeEvolutionnaire(10000, 150, (float)0.7, (float)0.4, pb);
 			sol = algo.run();
 			
 			if (sol.evaluation < best.evaluation)
@@ -55,6 +53,10 @@ public class Main {
 			else
 				unchanged++;
 		}
+		
+		//Utilise a hill-climbing algorithm on the best solution to refine it (niveau temps : négligeable par rapport au AE)
+		AlgorithmeTatonnement hc = new AlgorithmeTatonnement(pb, best);
+		hc.getBestNeighbour(best);
 		
 		System.out.println("Meilleure solution : " + best.evaluation);
 		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);

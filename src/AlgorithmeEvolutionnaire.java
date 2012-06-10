@@ -2,7 +2,7 @@ import java.util.Random;
 import java.util.Vector;
 
 
-public class Algorithme {
+public class AlgorithmeEvolutionnaire {
 	
 	private Population pop;
 	private int nbGenerations;
@@ -11,7 +11,7 @@ public class Algorithme {
 	private double mutationLevel;
 	private Problem pb;
 	
-	public Algorithme(int nbG, int popul, float cbLevel, float mLevel, Problem prob) {
+	public AlgorithmeEvolutionnaire(int nbG, int popul, float cbLevel, float mLevel, Problem prob) {
 		nbGenerations = nbG;
 		popSize = popul;
 		crossbreedLevel = cbLevel;
@@ -21,7 +21,7 @@ public class Algorithme {
 	}
 	
 	//Constructeur pour un full random
-	public Algorithme(int popul, Problem prob) {
+	public AlgorithmeEvolutionnaire(int popul, Problem prob) {
 		popSize = popul;
 		pb = prob;
 		pop = new Population(popSize, pb);

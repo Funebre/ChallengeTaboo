@@ -72,13 +72,13 @@ public class Solution {
 		transportationCompletionTimes = new double[slpb.getNp()] ;
 		productionStartingDates = new double[slpb.getNp()] ;
 
-		deliverySequenceMT = new Vector() ;
-		productionSequenceMT = new Vector() ;
+		deliverySequenceMT = new Vector<Batch>() ;
+		productionSequenceMT = new Vector<Batch>() ;
 	}
 	
 	public void reset() {
-		deliverySequenceMT = new Vector() ;
-		productionSequenceMT = new Vector() ;
+		deliverySequenceMT = new Vector<Batch>() ;
+		productionSequenceMT = new Vector<Batch>() ;
 		productionCompletionTimes = new double[slpb.getNp()] ;
 		productionStartingDates = new double[slpb.getNp()] ;
 		System.gc();
@@ -208,7 +208,7 @@ public class Solution {
 	}
 
 	public void setProductionBatchSize(int indice, int batchsize) {
-		productionSequenceMT.set(0, new Batch(batchsize)) ;		
+		productionSequenceMT.set(indice, new Batch(batchsize)) ;		
 	}	
 
 	/**
