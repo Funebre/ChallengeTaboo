@@ -44,7 +44,7 @@ public class Main {
 		best.evaluate();
 		
 		int unchanged = 0;
-		while(unchanged < 10) {
+		while (unchanged < 10) {
 			algo = new AlgorithmeEvolutionnaire(10000, 150, (float)0.7, (float)0.4, pb);
 			sol = algo.run();
 			
@@ -54,10 +54,10 @@ public class Main {
 				unchanged++;
 		}
 		
-		System.out.println("Meilleure solution après génétique : " + best.evaluation);
+		System.out.println("Best solution after evolutionary algorithm : " + best.evaluation);
 		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
 		
-		//Utilise a hill-climbing algorithm on the best solution to refine it (niveau temps : négligeable par rapport au AE)
+		//Utilize a hill-climbing algorithm on the best solution to refine it (execution time between AE and AT is insignificant)
 		AlgorithmeTatonnement hc = new AlgorithmeTatonnement(pb, best);
 		Solution optimum = new Solution(pb);
 		optimum.copy(best);
@@ -69,7 +69,7 @@ public class Main {
 		int i = 0;
 		int limit = 50;
 		
-		while(foundbetter && i < limit) {
+		while (foundbetter && i < limit) {
 			best.copy(optimum);
 			System.out.println("Optimizing");
 			optimum.copy(hc.getBestNeighbour(best));

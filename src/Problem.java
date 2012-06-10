@@ -236,8 +236,4 @@ public class Problem {
 				+ ", supplierUnitHoldingCost=" + supplierUnitHoldingCost
 				+ ", setupCost=" + setupCost + "]";
 	}
-	
-	
-
-
 }
