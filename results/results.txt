@@ -2,7 +2,7 @@
 
 001-150 : 13795 - Algorithme algo = new Algorithme(150000, 2000, (float)0.5, (float)0.5, pb);
 
-001-200 : 85900 - Algorithme algo = new Algorithme(100000, 2000, (float)0.5, (float)0.5, pb);
+001-200 : 78121 - Algorithme algo = new Algorithme(100000, 2000, (float)0.5, (float)0.5, pb);
 
 002-010 : 112 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
 

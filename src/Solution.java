@@ -84,6 +84,13 @@ public class Solution {
 		System.gc();
 	}
 	
+	public void copy(Solution sol) {
+		deliverySequenceMT = (Vector<Batch>)sol.deliverySequenceMT.clone();
+		productionSequenceMT = (Vector<Batch>)sol.productionSequenceMT.clone();
+		
+		evaluate();
+	}
+	
 	//Construction of a random solution
 	public void randomize() {
 		int i = slpb.getNp();
@@ -187,6 +194,10 @@ public class Solution {
 	//----------------------------------------
 	private void setDeliveryBatch(int i, Batch b) {
 		deliverySequenceMT.set(i,b) ;
+	}
+	
+	public void setDeliveryBatchSize(int i, int batchsize) {
+		deliverySequenceMT.set(i,new Batch(batchsize)) ;
 	}
 
 	private void insertDeliveryBatch(int i5, Batch batch) {

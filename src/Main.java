@@ -54,12 +54,39 @@ public class Main {
 				unchanged++;
 		}
 		
+		System.out.println("Meilleure solution après génétique : " + best.evaluation);
+		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
+		
 		//Utilise a hill-climbing algorithm on the best solution to refine it (niveau temps : négligeable par rapport au AE)
 		AlgorithmeTatonnement hc = new AlgorithmeTatonnement(pb, best);
-		hc.getBestNeighbour(best);
+		Solution optimum = new Solution(pb);
+		optimum.copy(best);
 		
-		System.out.println("Meilleure solution : " + best.evaluation);
-		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
+		System.out.println("Starting hillclimb with : " + optimum.evaluation);
+		System.out.println(optimum.productionSequenceMT + "|" + optimum.deliverySequenceMT);
+		
+		boolean foundbetter = true;
+		int i = 0;
+		int limit = 50;
+		
+		while(foundbetter && i < limit) {
+			best.copy(optimum);
+			System.out.println("Optimizing");
+			optimum.copy(hc.getBestNeighbour(best));
+			optimum.evaluate();
+			
+			if(optimum.evaluation < best.evaluation) {
+				System.out.println("Found better ! " + optimum.evaluation);
+			}
+			else {
+				foundbetter = false;
+			}
+			
+			i++;
+		}
+		
+		System.out.println("Meilleure solution : " + optimum.evaluation);
+		System.out.println(optimum.productionSequenceMT + "|" + optimum.deliverySequenceMT);
 		
 		long endTime = System.currentTimeMillis();
 		System.out.println((endTime - beginTime)/1000 + " seconds, stopped after " + unchanged + " stale iterations.");
