@@ -179,7 +179,7 @@ public class Solution {
 	public int getNumberOfDeliveredParts() {
 		int nc = getNumberOfDeliveredBatches() ;
 		int nbrParts = 0 ;
-		for (int i=0;i<nc;i++) {
+		for (int i = 0; i < nc; i++) {
 			nbrParts += getDeliveryBatchSize(i) ;
 		}
 		return nbrParts ;
@@ -331,7 +331,7 @@ public class Solution {
 	 * check the sequence
 	 */
 	protected boolean check() {
-		int i=0 ;
+		int i = 0;
 		while (i<getNumberOfDeliveredBatches()) {
 			if (getDeliveryBatchSize(i)<=0) {
 				System.out.println ("WARNING GSupplyLinkSolution.check : getDelivery("+i+")="+getDeliveryBatch(i)+" <= 0 => removing it !" );

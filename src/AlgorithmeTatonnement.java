@@ -36,7 +36,7 @@ public class AlgorithmeTatonnement {
 		for (int i = 0; i < size; ++i) {
 			//Copy solution into temp (ultra-sauvage)
 			temp.productionSequenceMT = (Vector<Batch>)sol.productionSequenceMT.clone();
-			
+
 			//Subtract 1 from the i-th batch
 			int k = sol.getProductionBatchSize(i);
 			//System.out.println("Quantity in batch to decrement : " + k);
@@ -51,7 +51,7 @@ public class AlgorithmeTatonnement {
 			
 			//Add it to another batch
 			//System.out.println("Rank to increment a batch to compensate : " + k);
-			int qte = sol.getProductionBatchSize(k);
+			int qte = temp.getProductionBatchSize(k);
 			temp.setProductionBatchSize(k, qte + 1);
 			
 			//Afficher
@@ -90,7 +90,7 @@ public class AlgorithmeTatonnement {
 			
 			//Add it to another batch
 			//System.out.println("Rank to increment a batch to compensate : " + k);
-			int qte = sol.getDeliveryBatchSize(k);
+			int qte = temp.getDeliveryBatchSize(k);
 			temp.setDeliveryBatchSize(k, qte + 1);
 			
 			//Afficher
