@@ -1,11 +1,27 @@
-001-100 : 45823 - Algorithme algo = new Algorithme(1000, 2000, (float)0.2, (float)0.5, pb);
+001-100 : 41701 - Algorithme algo = new Algorithme(1000, 2000, (float)0.2, (float)0.5, pb);
 
-001-150 : 13795 - Algorithme algo = new Algorithme(150000, 2000, (float)0.5, (float)0.5, pb);
+001-150 : 13310 - Algorithme algo = new Algorithme(150000, 2000, (float)0.5, (float)0.5, pb);
 
 001-200 : 78121 - Algorithme algo = new Algorithme(100000, 2000, (float)0.5, (float)0.5, pb);
 
-002-010 : 112 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
+002-010 : 107 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
 
-002-100 : 19896 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
+002-100 : 19712 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
+
+002-150 : 30390
+
+002-200 : 122168
+
+003-050 : 225471
+
+003-100 : 9196
+
+003-150 : 15073
 
 003-200 : 153504 - Algorithme algo = new Algorithme(500000, 3000, (float)0.5, (float)0.5, pb);
+
+004-100 : 24098
+
+004-150 : 80289
+
+004-200 : 26152
