@@ -18,24 +18,26 @@ public class Population {
 		best.evaluate();
 		//System.out.println(best.toString());
 		this.individuals = new LinkedList<Solution>();
+		
 		int i = 0;
 		while (i < size) {
 			Solution sol = new Solution(pb);
-			sol.randomizeisback();
+			sol.randomize2();
 			Solution sol2 = new Solution(pb);
 			sol2.randomize();
 			
 			if (!isPresent(sol) && !isPresent(sol2)) {
-				if(sol.evaluate() < sol2.evaluate()) {
+				if (sol.evaluate() < sol2.evaluate()) {
 					individuals.add(sol);
-					if(sol.evaluation < best.evaluation)
+					if (sol.evaluation < best.evaluation)
 						best = sol;
 				}
 				else {
 					individuals.add(sol2);
-					if(sol2.evaluation < best.evaluation)
-					best = sol2;
+					if (sol2.evaluation < best.evaluation)
+						best = sol2;
 				}
+				
 				i++;
 			}
 		}

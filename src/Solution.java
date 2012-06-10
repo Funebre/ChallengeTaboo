@@ -129,35 +129,41 @@ public class Solution {
 		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
 	}
 	
-	public void randomizeisback() {
-		int nb = slpb.getNp();
-		int i, j, q;
+	/**
+	 * Construction of a random solution
+	 * The difference between randomize() is that each batch
+	 * can't be greater than (number-products / 2).
+	 * This implies the solution can't have only one batch. 
+	 */
+	public void randomize2() {
+		int nb_products = slpb.getNp();
+		int i, current_products, max;
 		Random r = new Random();
 		
-		j = 0;
-		q = nb / 4;
-		while (j < nb) {
-			i = r.nextInt(q + r.nextInt(q)) + 1;
+		current_products = 0;
+		max = nb_products / 4;
+		while (current_products < nb_products) {
+			i = r.nextInt(max + r.nextInt(max)) + 1;
 			
-			if (j + i > nb) {
-				i = nb - j;
+			if (current_products + i > nb_products) {
+				i = nb_products - current_products;
 			}
 			
 			addProductionLast(i);
-			j += i;
+			current_products += i;
 		}
 		
-		j = 0;
-		q = nb / 5;
-		while (j < nb) {
-			i = r.nextInt(q + r.nextInt(q)) + 1;
+		current_products = 0;
+		max = nb_products / 5;
+		while (current_products < nb_products) {
+			i = r.nextInt(max + r.nextInt(max)) + 1;
 			
-			if (j + i > nb) {
-				i = nb - j;
+			if (current_products + i > nb_products) {
+				i = nb_products - current_products;
 			}
 			
 			addDeliveryLast(i);
-			j += i;
+			current_products += i;
 		}
 		
 		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
