@@ -4,6 +4,8 @@
 
 001-200 : 78121 - Algorithme algo = new Algorithme(100000, 2000, (float)0.5, (float)0.5, pb);
 
+001-300 : 423556 (meilleure prof : 358517)
+
 002-010 : 107 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
 
 002-100 : 19712 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
@@ -25,3 +27,11 @@
 004-150 : 80289
 
 004-200 : 26152
+
+011-100 : 82675 (meilleure prof : 80686)
+
+011-150 : 164106 (chance, sinon autour de 175000) (meilleure prof : 154739)
+
+011-200 : 112820 <= BETTER (meilleure prof : 113287)
+
+012-100 : 62445 <= BETTER (meilleure prof : 63588)
