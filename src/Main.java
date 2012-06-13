@@ -33,7 +33,7 @@ public class Main {
 		
 		long beginTime = System.currentTimeMillis(); 
 		
-		Problem pb = new Problem("data/problem-001-100.txt");
+		Problem pb = new Problem("data/problem-001-300.txt");
 		
 		Solution sol = new Solution(pb);
 
