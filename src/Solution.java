@@ -305,18 +305,20 @@ public class Solution {
 	
 	//invert a sequence of batches
 	public void reverseRandomBatchSequence(Vector batches) {
+		//not necessary to continue, can't swap batch sequence
+		if (batches.size() == 1) {
+			return;
+		}
+		
 		Random r = new Random();
-		int i = r.nextInt(batches.size());
-		int j = r.nextInt(batches.size());
+		int i = r.nextInt(batches.size() - 1) + 1; //Between the second and last, j can also be the first batch
+		int j = r.nextInt(i);
 		
-		while (j<i)
-			j = r.nextInt(batches.size());
-		
-		int k = j-i;
+		int k = i - j;
 		int iter = 0;
 
 		while (k > 0) {
-			swapTwoBatches(i+iter, j-iter, batches);
+			swapTwoBatches(j+iter, i-iter, batches);
 			iter++;
 			k -= 2;
 		}
