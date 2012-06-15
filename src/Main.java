@@ -30,28 +30,52 @@ public class Main {
 	
 	// ----------------------------------------
 	public static void main(String[] args) {
+		//Stop conditions.
+		//Set exectime to 0 to use the number of loop with unchanged best solution as stop condition
+		double exectime = 1.0; //seconds
+		int unchanged_max = 10;
+		
+		//Evolutionary algorithm.
+		int generations_nbr = 15000;
+		int population_size = 300;
+		
+		//End of user configurable settings.
 		
 		long beginTime = System.currentTimeMillis(); 
+		int unchanged = 0;
 		
 		Problem pb = new Problem("data/problem-011-100.txt");
 		
 		Solution sol = new Solution(pb);
 
 		AlgorithmeEvolutionnaire algo = new AlgorithmeEvolutionnaire(1, pb);
-		
 		Solution best = algo.run();
 		
 		best.evaluate();
+		System.out.println("Start solution : " + best.getEvaluation() + " " + best.productionSequenceMT + "|" + best.deliverySequenceMT);
 		
-		int unchanged = 0;
-		while (unchanged < 10) {
-			algo = new AlgorithmeEvolutionnaire(15000, 300, (float)0.5, (float)0.5, pb);
-			sol = algo.run();
-			
-			if (sol.evaluation < best.evaluation)
-				best = sol;
-			else
-				unchanged++;
+		//Time is teh stop condition
+		if (exectime > 0) {
+			double starttime = System.currentTimeMillis();
+			while ((System.currentTimeMillis() - starttime) < exectime * 1000) {
+				algo = new AlgorithmeEvolutionnaire(generations_nbr, population_size, (float)0.5, (float)0.5, pb);
+				sol = algo.run();
+				
+				if (sol.evaluation < best.evaluation)
+					best = sol;
+			}
+		}
+		else {
+
+			while (unchanged < 10) {
+				algo = new AlgorithmeEvolutionnaire(generations_nbr, population_size, (float)0.5, (float)0.5, pb);
+				sol = algo.run();
+				
+				if (sol.evaluation < best.evaluation)
+					best = sol;
+				else
+					unchanged++;
+			}
 		}
 		
 		System.out.println("Best solution after evolutionary algorithm : " + best.evaluation);
@@ -89,6 +113,10 @@ public class Main {
 		System.out.println(optimum.productionSequenceMT + "|" + optimum.deliverySequenceMT);
 		
 		long endTime = System.currentTimeMillis();
-		System.out.println((endTime - beginTime)/1000 + " seconds, stopped after " + unchanged + " stale iterations.");
+		
+		if (exectime > 0)
+			System.out.println((endTime - beginTime)/1000 + " seconds.");
+		else
+			System.out.println((endTime - beginTime)/1000 + " seconds, stopped after " + unchanged + " stale iterations.");
    }
 }
