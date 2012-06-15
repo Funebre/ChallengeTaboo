@@ -26,19 +26,21 @@ import java.util.Random;
  * @date 23 mai 2012
  *
  */
-public class Main {
-	
-	// ----------------------------------------
-	public static void main(String[] args) {
+public class Main
+{
+	public static void main(String[] args)
+	{
+		String problem_file = "data/problem-011-200.txt";
+		
 		//Stop conditions.
-		//Set exectime to 0.0 to use the number of loop with unchanged best solution as stop condition
-		double exectime = 9.0; //seconds
-		int unchanged_max = 10;
+		//Set exectime to 0.0 to use the number of loop with unchanged best solution as stop condition.
+		double exectime = 0.0; //seconds
+		int unchanged_max = 25;
 		
 		//Evolutionary algorithm.
-		int generations_nbr = 15000;
-		int population_size = 300;
-		double mutation_rate = 0.5;
+		int generations_nbr = 30000;
+		int population_size = 150;
+		double mutation_rate = 0.01;
 		double crossbreed_rate = 0.5;
 		//End of user configurable settings.
 		
@@ -46,7 +48,7 @@ public class Main {
 		long beginTime = System.currentTimeMillis(); 
 		int unchanged = 0;
 		
-		Problem pb = new Problem("data/problem-011-100.txt");
+		Problem pb = new Problem(problem_file);
 		
 		Solution sol = new Solution(pb);
 

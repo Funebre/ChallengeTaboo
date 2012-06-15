@@ -331,18 +331,36 @@ public class Solution {
 		int rand2, quantity;
 		
 		if (batches.size() > 1) {
-			//Cherche un batch à réduire.
+			//Cherche un deuxième batch à modifier.
 			while ((rand2 = r.nextInt(batches.size())) == rand1); 
 			
-			quantity = r.nextInt(batches.get(rand2).getQuantity());
-			
-			if (quantity == batches.get(rand2).getQuantity()) {
-				batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + quantity);
-				batches.remove(rand2);
+			//On ajoute un peu de rand1 à rand2
+			if (r.nextInt(2) == 0) {
+				//Si quantity(rand1) = 1, on supprime le batch de rang rand1 et on incrémente rand2
+				if (batches.get(rand1).getQuantity() == 1) {
+					batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() + 1);
+					batches.remove(rand1);
+				}
+				//Ajoute une partie de rand1 à rand2
+				else {
+					quantity = r.nextInt(batches.get(rand1).getQuantity() - 1) + 1;
+					batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() - quantity);
+					batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() + quantity);
+				}
 			}
+			//On ajoute un peu de rand2 à rand1
 			else {
-				batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + quantity);
-				batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() - quantity);
+				//Si quantity(rand2) = 1, on supprime le batch de rang rand2 et on incrémente rand1
+				if (batches.get(rand2).getQuantity() == 1) {
+					batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + 1);
+					batches.remove(rand2);
+				}
+				//Ajoute une partie de rand2 à rand1
+				else {
+					quantity = r.nextInt(batches.get(rand2).getQuantity() - 1) + 1;
+					batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() - quantity);
+					batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + quantity);
+				}
 			}
 		}
 		else {
@@ -360,22 +378,23 @@ public class Solution {
 	 */
 	protected boolean check() {
 		int i = 0;
-		while (i<getNumberOfDeliveredBatches()) {
-			if (getDeliveryBatchSize(i)<=0) {
-				System.out.println ("WARNING GSupplyLinkSolution.check : getDelivery("+i+")="+getDeliveryBatch(i)+" <= 0 => removing it !" );
-				deliverySequenceMT.remove(i) ;
+		while (i < getNumberOfDeliveredBatches()) {
+			if (getDeliveryBatchSize(i) <= 0) {
+				System.out.println("WARNING GSupplyLinkSolution.check : getDelivery("+i+")="+getDeliveryBatch(i)+" <= 0 => removing it !");
+				deliverySequenceMT.remove(i);
 			}
 			else
-				i++ ;
+				i++;
 		}
 
-		if (getNumberOfDeliveredParts()>slpb.getNp()) {
-			System.out.println ("ERROR GSupplyLinkSolution.check : getNbrProduit()="+getNumberOfDeliveredParts()+" > slpb.getNp()="+slpb.getNp()+" => don't know what to do !" );
-			return false ;
+		if (getNumberOfDeliveredParts() > slpb.getNp()) {
+			System.out.println("ERROR GSupplyLinkSolution.check : getNbrProduit()="+getNumberOfDeliveredParts()+
+				" > slpb.getNp()="+slpb.getNp()+" => don't know what to do !");
+			return false;
 		}
 		
 		if (getNumberOfDeliveredParts() < slpb.getNp()) {
-			System.out.println ("ERROR : On n'a pas livrÈ assez de produits ! Le client sera mÈcontent");
+			System.out.println("ERROR : On n'a pas livré assez de produits ! Le client sera mécontent");
 			return false;
 		}
 		

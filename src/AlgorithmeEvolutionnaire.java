@@ -51,14 +51,16 @@ public class AlgorithmeEvolutionnaire {
 				//long (environ 6 secondes)
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
 				
-				// if(r.nextInt(100) < 80) {
+				if(r.nextInt(100) < 50) {
 					father.reverseRandomBatchSequence(father.productionSequenceMT);
 					father.reverseRandomBatchSequence(father.deliverySequenceMT);
-				// } 
-				// else { //Ne marche pas encore
-					// father.mutation(father.productionSequenceMT);
-					// father.mutation(father.deliverySequenceMT);
-				// }
+				} 
+				else { //Ne marche pas encore
+					//System.out.println("Avant : " + father.productionSequenceMT + "|" + father.deliverySequenceMT);
+					father.mutation(father.productionSequenceMT);
+					father.mutation(father.deliverySequenceMT);
+					//System.out.println("Apres : " + father.productionSequenceMT + "|" + father.deliverySequenceMT);
+				}
 				
 				if (father.evaluate() < pop.getBest().evaluate()) 
 					pop.setBest(father);

@@ -30,8 +30,10 @@
 
 011-100 : 81759 [26, 27, 47]|[26, 3, 24, 15, 32] (meilleure prof : 80686)
 
-011-150 : 164106 (chance, sinon autour de 175000) (meilleure prof : 154739)
+011-150 : 164106 (meilleure prof : 154739)
 
-011-200 : 112820 <= BETTER (meilleure prof : 113287)
+011-200 : 112077 [57, 46, 46, 51]|[46, 11, 42, 4, 46, 28, 18, 5] <= BETTER (meilleure prof : 113287)
 
 012-100 : 62445 [100]|[38, 62] <= BETTER (meilleure prof : 63588)
+
+012-200 : 82429 (meilleure prof : 83526)
