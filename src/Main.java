@@ -31,15 +31,17 @@ public class Main {
 	// ----------------------------------------
 	public static void main(String[] args) {
 		//Stop conditions.
-		//Set exectime to 0 to use the number of loop with unchanged best solution as stop condition
-		double exectime = 1.0; //seconds
+		//Set exectime to 0.0 to use the number of loop with unchanged best solution as stop condition
+		double exectime = 9.0; //seconds
 		int unchanged_max = 10;
 		
 		//Evolutionary algorithm.
 		int generations_nbr = 15000;
 		int population_size = 300;
-		
+		double mutation_rate = 0.5;
+		double crossbreed_rate = 0.5;
 		//End of user configurable settings.
+		
 		
 		long beginTime = System.currentTimeMillis(); 
 		int unchanged = 0;
@@ -58,7 +60,7 @@ public class Main {
 		if (exectime > 0) {
 			double starttime = System.currentTimeMillis();
 			while ((System.currentTimeMillis() - starttime) < exectime * 1000) {
-				algo = new AlgorithmeEvolutionnaire(generations_nbr, population_size, (float)0.5, (float)0.5, pb);
+				algo = new AlgorithmeEvolutionnaire(generations_nbr, population_size, crossbreed_rate, mutation_rate, pb);
 				sol = algo.run();
 				
 				if (sol.evaluation < best.evaluation)
@@ -67,8 +69,8 @@ public class Main {
 		}
 		else {
 
-			while (unchanged < 10) {
-				algo = new AlgorithmeEvolutionnaire(generations_nbr, population_size, (float)0.5, (float)0.5, pb);
+			while (unchanged < unchanged_max) {
+				algo = new AlgorithmeEvolutionnaire(generations_nbr, population_size, crossbreed_rate, mutation_rate, pb);
 				sol = algo.run();
 				
 				if (sol.evaluation < best.evaluation)

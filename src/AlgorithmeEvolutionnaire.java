@@ -11,7 +11,7 @@ public class AlgorithmeEvolutionnaire {
 	private double mutationLevel;
 	private Problem pb;
 	
-	public AlgorithmeEvolutionnaire(int nbG, int popul, float cbLevel, float mLevel, Problem prob) {
+	public AlgorithmeEvolutionnaire(int nbG, int popul, double cbLevel, double mLevel, Problem prob) {
 		nbGenerations = nbG;
 		popSize = popul;
 		crossbreedLevel = cbLevel;
@@ -51,14 +51,14 @@ public class AlgorithmeEvolutionnaire {
 				//long (environ 6 secondes)
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
 				
-				if(r.nextInt(100) < 80) {
+				// if(r.nextInt(100) < 80) {
 					father.reverseRandomBatchSequence(father.productionSequenceMT);
 					father.reverseRandomBatchSequence(father.deliverySequenceMT);
-				} 
-				else { //Ne marche pas encore
-					father.mutation(father.productionSequenceMT);
-					father.mutation(father.deliverySequenceMT);
-				}
+				// } 
+				// else { //Ne marche pas encore
+					// father.mutation(father.productionSequenceMT);
+					// father.mutation(father.deliverySequenceMT);
+				// }
 				
 				if (father.evaluate() < pop.getBest().evaluate()) 
 					pop.setBest(father);
