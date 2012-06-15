@@ -35,20 +35,14 @@ public class Batch {
 		quantity = q;
 	}
 	
-	
-
 	public int getQuantity() {
 		return quantity;
 	}
-
-
-
+	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
-
-
+	
 	public String toString() {
 		return new String(""+quantity) ;
 	}
