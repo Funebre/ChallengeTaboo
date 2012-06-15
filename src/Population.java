@@ -26,19 +26,18 @@ public class Population {
 			Solution sol2 = new Solution(pb);
 			sol2.randomize();
 			
-			if (!isPresent(sol) && !isPresent(sol2)) {
-				if (sol.evaluate() < sol2.evaluate()) {
-					individuals.add(sol);
-					if (sol.evaluation < best.evaluation)
-						best = sol;
-				}
-				else {
-					individuals.add(sol2);
-					if (sol2.evaluation < best.evaluation)
-						best = sol2;
-				}
-				
-				i++;
+			if ( ! isPresent(sol)) {
+				individuals.add(sol);
+				if (sol.evaluate() < best.evaluation)
+					best = sol;
+				++i;
+			}
+			
+			if ( ! isPresent(sol2)) {
+				individuals.add(sol2);
+				if (sol2.evaluate() < best.evaluation)
+					best = sol2;
+				++i;
 			}
 		}
 	}
