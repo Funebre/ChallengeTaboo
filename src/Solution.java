@@ -154,7 +154,7 @@ public class Solution {
 		}
 		
 		current_products = 0;
-		max = nb_products / 5;
+		max = nb_products / 4;
 		while (current_products < nb_products) {
 			i = r.nextInt(max + r.nextInt(max)) + 1;
 			
@@ -326,11 +326,31 @@ public class Solution {
 	public void mutation(Vector<Batch> batches) {
 		Random r = new Random();
 		int rand1 = r.nextInt(batches.size());
-		int rand2 = r.nextInt(batches.size());
+		int rand2, quantity;
 		
-		batches.set(rand1, new Batch(batches.get(rand1).getQuantity() + batches.get(rand2).getQuantity()));
-		
-		batches.remove(rand2);
+		if (batches.size() > 1) {
+			//Cherche un batch à réduire.
+			while ((rand2 = r.nextInt(batches.size())) == rand1); 
+			
+			quantity = r.nextInt(batches.get(rand2).getQuantity());
+			
+			if (quantity == batches.get(rand2).getQuantity()) {
+				batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + quantity);
+				batches.remove(rand2);
+			}
+			else {
+				batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + quantity);
+				batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() - quantity);
+			}
+		}
+		else {
+			quantity = batches.get(0).getQuantity();
+			
+			rand2 = r.nextInt(quantity - 1) + 1;
+			
+			batches.get(rand1).setQuantity(quantity - rand2);
+			batches.add(new Batch(rand2));
+		}
 	}
 	
 	/**

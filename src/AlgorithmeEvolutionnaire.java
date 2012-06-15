@@ -50,14 +50,15 @@ public class AlgorithmeEvolutionnaire {
 			if (r.nextInt(100) < mutationLevel*100) {			
 				//long (environ 6 secondes)
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
-				//if(r.nextInt(100) < 50) {
+				
+				if(r.nextInt(100) < 80) {
 					father.reverseRandomBatchSequence(father.productionSequenceMT);
 					father.reverseRandomBatchSequence(father.deliverySequenceMT);
-				//} 
-				/*else { //Ne marche pas encore
+				} 
+				else { //Ne marche pas encore
 					father.mutation(father.productionSequenceMT);
 					father.mutation(father.deliverySequenceMT);
-				}*/
+				}
 				
 				if (father.evaluate() < pop.getBest().evaluate()) 
 					pop.setBest(father);

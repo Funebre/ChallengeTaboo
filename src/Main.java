@@ -33,7 +33,7 @@ public class Main {
 		
 		long beginTime = System.currentTimeMillis(); 
 		
-		Problem pb = new Problem("data/problem-011-200.txt");
+		Problem pb = new Problem("data/problem-011-100.txt");
 		
 		Solution sol = new Solution(pb);
 
@@ -45,7 +45,7 @@ public class Main {
 		
 		int unchanged = 0;
 		while (unchanged < 10) {
-			algo = new AlgorithmeEvolutionnaire(20000, 100, (float)0.7, (float)0.4, pb);
+			algo = new AlgorithmeEvolutionnaire(15000, 300, (float)0.5, (float)0.5, pb);
 			sol = algo.run();
 			
 			if (sol.evaluation < best.evaluation)
