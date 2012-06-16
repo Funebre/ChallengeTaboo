@@ -1,0 +1,79 @@
+\section{Algorithme Évolutionniste}
+Nous avons décidé d'implémenter l'algorithme évolutionniste assez rapidement. En fait, c'est en prenant quelques idées dans le TP sur ces algorithmes que nous avons pris conscience de la puissance de ces algorithmes, qui, même s'il ne permettent pas toujours de trouver la solution optimale dans des problèmes à beaucoup de solutions, ils permettent d'en trouver un assez bon.
+\vspace{1em}
+Pour ce faire, nous avons donc écrit la classe \verb!AlgorithmeEvolutionniste! et la classe \verb!Population!. Lors de la construction de l'algorithme, celui-ci génère une population de solutions via les fonctions \verb!randomize!. Ceux-ci sont ensuite croisés et mutés pour faire varier la population, mais ne sont gardés que si leur évaluation est meilleure que celle de leurs parent. Ceci donne un côté élitiste à l'algorithme.
+
+\subsection{Croisement}
+La fonction croisement est une fonction très simple. Cette fonction prend en paramètre deux solutions et échange leurs séquences de batchs de production, ce qui nous revoie deux solutions fils. Si ces solutions sont meilleurs que leurs parents, ils les remplacent.
+
+\begin{java}
+public void crossbreedProduction(Solution father, Solution mother) {
+	Solution newChild1 = new Solution(pb);
+	newChild1.setDeliverySequenceMT(mother.deliverySequenceMT);
+	Solution newChild2 = new Solution(pb);
+	newChild2.setDeliverySequenceMT(father.deliverySequenceMT); 
+	int i;
+	
+	//production of father in newChild1
+	for (i = 0; i < father.getNumberOfProducedBatches(); ++i) {
+		newChild1.addProductionLast(father.getProductionBatch(i).getQuantity());
+	}
+	
+	//production of mother in newChild2
+	for (i = 0; i < mother.getNumberOfProducedBatches(); ++i) {
+		newChild2.addProductionLast(mother.getProductionBatch(i).getQuantity());
+	}
+	
+	//check if newChild1 and newChild2 are not in population, if the're better solutions than 				heir parents, replace
+	if (newChild1.evaluate() < pop.getBest().evaluation) {
+		pop.setBest(newChild1);
+		father = newChild1;
+	}
+	if (newChild2.evaluate() < pop.getBest().evaluation) {
+		pop.setBest(newChild2);
+		mother = newChild2;
+	}	
+}
+\end{java}
+
+\vspace{1em}
+
+\subsection{Mutation}
+La fonction mutation repose sur l'aléatoire pour inverser une sous-séquence de batchs à la fois dans la séquence de production et dans la séquence de livraison. Nous avons trouvé que la solution générée était assez différente de la solution initiale pour considérer une ré-injection dans la population active si son évaluation était meilleure que l'originale, sinon, on ne le garde pas.
+\begin{java}
+public void reverseRandomBatchSequence(Vector batches) {
+	Random r = new Random();
+	int i = r.nextInt(batches.size());
+	int j = r.nextInt(batches.size());
+	
+	while (j<i)
+		j = r.nextInt(batches.size());
+	
+	int k = j-i;
+	int iter = 0;
+	while (k > 0) {
+		swapTwoBatches(i+iter, j-iter, batches);
+		iter++;
+		k -= 2;
+	}
+}
+\end{java}
+
+\vspace{1em}
+
+\begin{java}
+if (r.nextInt(100) < mutationLevel*100) {			
+	Solution father = pop.getIndividuals().get(r.nextInt(popSize));
+	father.reverseRandomBatchSequence(father.productionSequenceMT);
+	father.reverseRandomBatchSequence(father.deliverySequenceMT);
+	
+	if (father.evaluate() < pop.getBest().evaluate()) 
+		pop.setBest(father);
+		
+}
+\end{java}
+
+Pour les deux fonctions de croisement et de mutation, nous avons un paramètre de l'algorithme qui détermine la probabilité d'effectuer ces changements. Comme vu en TP, trop de mutation ou de croisement est inefficace, et au fur et a mesure des test nous avons trouvé les paramètre idéaux aux alentours de 0.8 pour le croisement et 0.4 pour la mutation.
+
+\subsection{Ouverture}
+Au fur et à mesure de tests sur l'algorithme développé, nous nous sommes rendus compte d'une chose, c'est que, si l'algorithme évolutionniste permet de trouver une bonne solution, il ne permet pas toujours de trouver la meilleure, étant donné le caractère purement aléatoire de la chose. Nous avons donc pensé qu'il serait avantageux de perfectionner en quelque sorte la solution trouvée.

@@ -33,7 +33,7 @@ public class Main {
 		
 		long beginTime = System.currentTimeMillis(); 
 		
-		Problem pb = new Problem("data/problem-001-200.txt");
+		Problem pb = new Problem("data/problem-011-150.txt");
 		
 		Solution sol = new Solution(pb);
 
@@ -44,8 +44,13 @@ public class Main {
 		best.evaluate();
 		
 		int unchanged = 0;
+<<<<<<< HEAD
 		while (unchanged < 10) {
 			algo = new AlgorithmeEvolutionnaire(10000, 150, (float)0.7, (float)0.4, pb);
+=======
+		while(unchanged < 40) {
+			algo = new AlgorithmeEvolutionnaire(25000, 150, (float)0.8, (float)0.5, pb);
+>>>>>>> Ecriture du rapport, amélioration de quelques solutions
 			sol = algo.run();
 			
 			if (sol.evaluation < best.evaluation)
@@ -54,10 +59,17 @@ public class Main {
 				unchanged++;
 		}
 		
+<<<<<<< HEAD
 		System.out.println("Best solution after evolutionary algorithm : " + best.evaluation);
 		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
 		
 		//Utilize a hill-climbing algorithm on the best solution to refine it (execution time between AE and AT is insignificant)
+=======
+		System.out.println("Meilleure solution apr�s g�n�tique : " + best.evaluation);
+		System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
+		
+		//Utilise a hill-climbing algorithm on the best solution to refine it (niveau temps : n�gligeable par rapport au AE)
+>>>>>>> Ecriture du rapport, amélioration de quelques solutions
 		AlgorithmeTatonnement hc = new AlgorithmeTatonnement(pb, best);
 		Solution optimum = new Solution(pb);
 		optimum.copy(best);

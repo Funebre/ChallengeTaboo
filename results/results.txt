@@ -9,3 +9,9 @@
 002-100 : 19896 - Algorithme algo = new Algorithme(100000, 4000, (float)0.5, (float)0.5, pb);
 
 003-200 : 153504 - Algorithme algo = new Algorithme(500000, 3000, (float)0.5, (float)0.5, pb);
+
+011-150 : 154122.04261194495 - algo = new AlgorithmeEvolutionnaire(25000, 210, (float)0.8, (float)0.5, pb); (unchanged = 40; tps = 22s)
+
+011-200 : 114569.71 - AlgorithmeEvolutionnaire(20000, 100, (float)0.8, (float)0.5, pb); (unchanged = 25) tps = 18s
+
+012-200 : 82429 - AlgorithmeEvolutionnaire(20000, 100, (float)0.8, (float)0.5, pb); (unchanged = 25) tps = 24s

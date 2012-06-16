@@ -1,0 +1,54 @@
+\section{Le Programme Principal}
+Bien évidemment, une fois les algorithmes développés, il fallait les inclure dans le programme principal. Nous avons pensé augmenter les chances de trouver une bonne solution en utilisant un paramètre de stérilité, c'est à dire un nombre de fois d'application de l'algorithme au problème au bout duquel, si la meilleure solution n'a pas varié, on passe à l'étape de perfectionnement.\\
+Dans le programme principal, nous faisons donc appel aux algorithmes en les instanciant avec des paramètres améliorés au fil des exécutions et de la phase de test du programme. En effet, nous avons rapidement constaté qu'il y a des nombres limite de population et d'itérations au bout duquel l'algorithme évolutionniste est moins efficace. Pour celà, nous avons trouvé plus utile de garder le nombre d'itérations et de population relativement bas, et nous intéresser plutôt au nombre de fois que l'algorithme est appelé. Ceci rend bien sûr la durée d'exécution légèrement différente à chaque exécution du programme, cependant l'ordre de grandeur étant seulement de 2 ou 3 secondes nous n'en prenons que peu compte.
+
+\subsection{La partie évolutionniste}
+
+\begin{java}
+while(unchanged < 40) {
+	algo = new AlgorithmeEvolutionnaire(25000, 150, (float)0.8, (float)0.5, pb);
+	sol = algo.run();
+	
+	if (sol.evaluation < best.evaluation)
+		best = sol;
+	else
+		unchanged++;
+}
+
+//System.out.println("Meilleure solution apres genetique : " + best.evaluation);
+//System.out.println(best.productionSequenceMT + "|" + best.deliverySequenceMT);
+\end{java}
+
+\vspace{1em}
+
+\subsection{La partie tâtonnement}
+
+\begin{java}
+AlgorithmeTatonnement hc = new AlgorithmeTatonnement(pb, best);
+Solution optimum = new Solution(pb);
+optimum.copy(best);
+
+boolean foundbetter = true;
+int i = 0;
+int limit = 50;
+
+while(foundbetter && i < limit) {
+	best.copy(optimum);
+	System.out.println("Optimizing");
+	optimum.copy(hc.getBestNeighbour(best));
+	optimum.evaluate();
+	
+	if(optimum.evaluation < best.evaluation) {
+		System.out.println("Found better ! " + optimum.evaluation);
+	}
+	else {
+		foundbetter = false;
+	}
+	
+	i++;
+}
+\end{java}
+
+\vspace{1em}
+
+Une autre solution que nous avons trouvé pour améliorer la vitesse  d'exécution de notre algorithme était de garder un minimum de \verb!System.out.print!. Nous avons constaté que cette fonction prend beaucoup de temps pour peu d'intérêt final, alors nous nous sommes contenté du minimum nécessaire à la bonne compréhension de l'utilisateur.

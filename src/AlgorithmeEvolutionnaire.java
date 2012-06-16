@@ -44,7 +44,7 @@ public class AlgorithmeEvolutionnaire {
 				Solution mother = pop.rouletteSelection();*/
 							
 				crossbreedProduction(father, mother);
-				crossbreedDelivery(father, mother);
+				//crossbreedDelivery(father, mother);
 			}
 			
 			if (r.nextInt(100) < mutationLevel*100) {			
@@ -92,19 +92,15 @@ public class AlgorithmeEvolutionnaire {
 		}
 		
 		//check if newChild1 and newChild2 are not in population, if the're better solutions than their parents, replace
-		/*if ( ! pop.isPresent(newChild1)) {*/
-			if (newChild1.evaluate() < pop.getBest().evaluation) {
-				pop.setBest(newChild1);
-				father = newChild1;
-			}
-		/*}*/
+		if (newChild1.evaluate() < pop.getBest().evaluation) {
+			pop.setBest(newChild1);
+			father = newChild1;
+		}
 		
-		/*if ( ! pop.isPresent(newChild2)) {*/
-			if (newChild2.evaluate() < pop.getBest().evaluation) {
-				pop.setBest(newChild2);
-				mother = newChild2;
-			}
-		/*}*/		
+		if (newChild2.evaluate() < pop.getBest().evaluation) {
+			pop.setBest(newChild2);
+			mother = newChild2;
+		}
 	}
 	
 	public void crossbreedDelivery(Solution father, Solution mother)

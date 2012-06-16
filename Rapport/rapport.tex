@@ -1,0 +1,98 @@
+\documentclass[a4paper,11pt]{article}
+
+% Packages pour la langue française
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[francais]{babel} 
+
+\usepackage{color}
+
+% Pour avoir les signets dans le pdf
+\usepackage[pdftex,
+    bookmarks=true,
+    colorlinks=true,
+    linkcolor=black,
+    pdfauthor={Victor Haren et Benjamin March},
+    pdftitle={Rapport projet AG41},
+    pdfsubject={Algorithmique et Recherche Opérationnelle}]
+    {hyperref}
+
+% Package pour la mise en forme des algorithmes
+\usepackage{algorithmic}
+
+\definecolor{colKeys}{rgb}{0,0,1}
+\definecolor{colIdentifier}{rgb}{0,0,0}
+\definecolor{colComments}{rgb}{0,0.5,1}
+\definecolor{colString}{rgb}{0.6,0.1,0.1} 
+
+\usepackage{listings}
+
+\lstnewenvironment{java}[1][]{\lstset{tabsize=4,
+	language=matlab,
+        basicstyle=\scriptsize,
+        %upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+	language=Java,
+	label={#1},caption={#1},%avec nom du listing}
+}}{}
+
+\lstset{tabsize=4,
+        basicstyle=\scriptsize,
+        %upquote=true,
+        aboveskip={1.5\baselineskip},
+        columns=fixed,
+        showstringspaces=false,
+        extendedchars=true,
+        breaklines=true,
+        prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+	frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+	language=Java
+}
+
+% Infos pour la page de garde du document
+\title{Algorithmique et Optimisation de Recherche Opérationnelle}
+\author{Victor Haren et Benjamin March}
+\date{\today}
+
+\begin{document}
+
+\tableofcontents
+\clearpage
+
+\input{introduction}
+\clearpage
+
+\input{premieresidees}
+\clearpage
+
+\input{evolutionniste}
+\clearpage
+
+\input{tatonnement}
+\clearpage
+
+\input{principal}
+%\clearpage
+
+
+\end{document}
