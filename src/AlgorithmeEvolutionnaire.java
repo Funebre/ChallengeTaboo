@@ -43,8 +43,7 @@ public class AlgorithmeEvolutionnaire {
 				/*Solution father = pop.rouletteSelection();
 				Solution mother = pop.rouletteSelection();*/
 							
-				crossbreedProduction(father, mother);
-				crossbreedDelivery(father, mother);
+				crossbreed(father, mother);
 			}
 			
 			if (r.nextInt(100) < mutationLevel*100) {
@@ -66,57 +65,17 @@ public class AlgorithmeEvolutionnaire {
 	}
 
 	//cross breed two solutions
-	public void crossbreedProduction(Solution father, Solution mother) {
-		Solution newChild1 = new Solution(pb);
-		newChild1.setDeliverySequenceMT(mother.deliverySequenceMT);
-		Solution newChild2 = new Solution(pb);
-		newChild2.setDeliverySequenceMT(father.deliverySequenceMT); 
-		int i;
+	public void crossbreed(Solution father, Solution mother) {
+		Solution newChild1 = new Solution(mother);
+		Solution newChild2 = new Solution(father);
 		
 		//production of father in newChild1
-		for (i = 0; i < father.getNumberOfProducedBatches(); ++i) {
-			newChild1.addProductionLast(father.getProductionBatch(i).getQuantity());
-		}
+		newChild1.setProductionSequenceMT((Vector) father.getProductionSequenceMT().clone());
 		
 		//production of mother in newChild2
-		for (i = 0; i < mother.getNumberOfProducedBatches(); ++i) {
-			newChild2.addProductionLast(mother.getProductionBatch(i).getQuantity());
-		}
+		newChild2.setProductionSequenceMT((Vector) mother.getProductionSequenceMT().clone());
 		
-		//check if newChild1 and newChild2 are not in population, if the're better solutions than their parents, replace
-		/*if ( ! pop.isPresent(newChild1)) {*/
-			if (newChild1.evaluate() < pop.getBest().evaluation) {
-				pop.setBest(newChild1);
-				father = newChild1;
-			}
-		/*}*/
-		
-		/*if ( ! pop.isPresent(newChild2)) {*/
-			if (newChild2.evaluate() < pop.getBest().evaluation) {
-				pop.setBest(newChild2);
-				mother = newChild2;
-			}
-		/*}*/		
-	}
-	
-	public void crossbreedDelivery(Solution father, Solution mother)
-	{
-		Solution newChild1 = new Solution(pb);
-		newChild1.setProductionSequenceMT(mother.productionSequenceMT);
-		Solution newChild2 = new Solution(pb);
-		newChild2.setProductionSequenceMT(father.productionSequenceMT); 
-
-		int i;
-		//delivery of mother in newChild2
-		for (i = 0; i < mother.getNumberOfDeliveredBatches(); ++i) {
-			newChild2.addDeliveryLast(mother.getDeliveryBatch(i).getQuantity());
-		}
-		//delivery of father in newChild1
-		for (i = 0; i < father.getNumberOfDeliveredBatches(); ++i) {
-			newChild1.addDeliveryLast(father.getDeliveryBatch(i).getQuantity());
-		}
-		
-		//check if newChild1 and newChild2 are better solutions than their parents, if so, replace
+		//if the're better solutions than their parents, replace
 		if (newChild1.evaluate() < pop.getBest().evaluation) {
 			pop.setBest(newChild1);
 			father = newChild1;
@@ -125,10 +84,8 @@ public class AlgorithmeEvolutionnaire {
 		if (newChild2.evaluate() < pop.getBest().evaluation) {
 			pop.setBest(newChild2);
 			mother = newChild2;
-		}		
+		}
 	}
-	
-	
 
 	public Population getPop() {
 		return pop;
