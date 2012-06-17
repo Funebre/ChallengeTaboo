@@ -324,55 +324,6 @@ public class Solution {
 		}
 	}
 	
-	//specialized mutation (qu ne marche pas ^^)
-	public void mutation(Vector<Batch> batches) {
-		Random r = new Random();
-		int rand1 = r.nextInt(batches.size());
-		int rand2, quantity;
-		
-		if (batches.size() > 1) {
-			//Cherche un deuxième batch à modifier.
-			while ((rand2 = r.nextInt(batches.size())) == rand1); 
-			
-			//On ajoute un peu de rand1 à rand2
-			if (r.nextInt(2) == 0) {
-				//Si quantity(rand1) = 1, on supprime le batch de rang rand1 et on incrémente rand2
-				if (batches.get(rand1).getQuantity() == 1) {
-					batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() + 1);
-					batches.remove(rand1);
-				}
-				//Ajoute une partie de rand1 à rand2
-				else {
-					quantity = r.nextInt(batches.get(rand1).getQuantity() - 1) + 1;
-					batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() - quantity);
-					batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() + quantity);
-				}
-			}
-			//On ajoute un peu de rand2 à rand1
-			else {
-				//Si quantity(rand2) = 1, on supprime le batch de rang rand2 et on incrémente rand1
-				if (batches.get(rand2).getQuantity() == 1) {
-					batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + 1);
-					batches.remove(rand2);
-				}
-				//Ajoute une partie de rand2 à rand1
-				else {
-					quantity = r.nextInt(batches.get(rand2).getQuantity() - 1) + 1;
-					batches.get(rand2).setQuantity(batches.get(rand2).getQuantity() - quantity);
-					batches.get(rand1).setQuantity(batches.get(rand1).getQuantity() + quantity);
-				}
-			}
-		}
-		else {
-			quantity = batches.get(0).getQuantity();
-			
-			rand2 = r.nextInt(quantity - 1) + 1;
-			
-			batches.get(rand1).setQuantity(quantity - rand2);
-			batches.add(new Batch(rand2));
-		}
-	}
-	
 	/**
 	 * check the sequence
 	 */

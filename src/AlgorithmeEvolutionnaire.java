@@ -47,24 +47,14 @@ public class AlgorithmeEvolutionnaire {
 				crossbreedDelivery(father, mother);
 			}
 			
-			if (r.nextInt(100) < mutationLevel*100) {			
-				//long (environ 6 secondes)
+			if (r.nextInt(100) < mutationLevel*100) {
 				Solution father = pop.getIndividuals().get(r.nextInt(popSize));
 				
-				if(r.nextInt(100) < 50) {
-					father.reverseRandomBatchSequence(father.productionSequenceMT);
-					father.reverseRandomBatchSequence(father.deliverySequenceMT);
-				} 
-				else { //Ne marche pas encore
-					//System.out.println("Avant : " + father.productionSequenceMT + "|" + father.deliverySequenceMT);
-					father.mutation(father.productionSequenceMT);
-					father.mutation(father.deliverySequenceMT);
-					//System.out.println("Apres : " + father.productionSequenceMT + "|" + father.deliverySequenceMT);
-				}
+				father.reverseRandomBatchSequence(father.productionSequenceMT);
+				father.reverseRandomBatchSequence(father.deliverySequenceMT);
 				
 				if (father.evaluate() < pop.getBest().evaluate()) 
 					pop.setBest(father);
-					
 			}
 				
 			i++;
@@ -76,8 +66,7 @@ public class AlgorithmeEvolutionnaire {
 	}
 
 	//cross breed two solutions
-	public void crossbreedProduction(Solution father, Solution mother)
-	{
+	public void crossbreedProduction(Solution father, Solution mother) {
 		Solution newChild1 = new Solution(pb);
 		newChild1.setDeliverySequenceMT(mother.deliverySequenceMT);
 		Solution newChild2 = new Solution(pb);
