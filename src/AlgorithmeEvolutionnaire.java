@@ -52,7 +52,7 @@ public class AlgorithmeEvolutionnaire {
 				father.reverseRandomBatchSequence(father.productionSequenceMT);
 				father.reverseRandomBatchSequence(father.deliverySequenceMT);
 				
-				if (father.evaluate() < pop.getBest().evaluate()) 
+				if (father.evaluate() < pop.getBest().getEvaluation()) 
 					pop.setBest(father);
 			}
 				
