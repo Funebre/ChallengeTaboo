@@ -1,0 +1,65 @@
+\section{Tâtonnement}
+Pour perfectionner la solution trouvée par l'algorithme évolutionniste, nous avons naturellement pensé à l'utilisation d'un algorithme par tâtonnement, ou "Hill-climbing" en anglais. Celle-ci est basée sur une fonction de voisinage très basique, et l'évaluation de ces voisins pour en garder le meilleur. Ensuite, l'étape est répété jusqu'à ce qu'il n'y ait aucune progression. C'est donc que nous avons atteint l'optimum local. Cependant, il n'y a aucune garantie que cela soit l'optimum global, du fait de la nature aléatoire de la solution initiale.\\
+Nous avons donc créé la classe \verb!AlgorithmeTatonnement!.
+\subsection{La fonction voisinage}
+
+\begin{java}
+public void getBestxxxNeighbour(Solution sol, Solution temp, Random r) {
+	int size = sol.xxxSequenceMT.size();		
+	
+	for(int i = 0; i < size; ++i) {
+		//Copy solution into temp
+		temp.productionSequenceMT = (Vector<Batch>)sol.productionSequenceMT.clone();
+		temp.deliverySequenceMT = (Vector<Batch>)sol.deliverySequenceMT.clone();
+		
+		//Subtract 1 from the i-th batch
+		int k = sol.getxxxBatchSize(i);
+		temp.setxxxBatchSize(i, k-1);
+		
+		//Add it to another batch
+		k = r.nextInt(size);
+		while(k == i)
+			k = r.nextInt(size);
+		int qte = sol.getxxxBatchSize(k);
+		temp.setxxxBatchSize(k, qte + 1);
+		
+		temp.evaluate();
+		
+		//Afficher
+		//System.out.println("Resulting solution : " + temp.productionSequenceMT + " | " + 			temp.deliverySequenceMT + " => " + temp.evaluate());
+		//System.out.println();
+		//Test the resulting solution
+		if (temp.evaluation < bestNeighbour.evaluation) {
+			bestNeighbour.productionSequenceMT = (Vector<Batch>)temp.productionSequenceMT.clone();
+			bestNeighbour.deliverySequenceMT = (Vector<Batch>)temp.deliverySequenceMT.clone();
+			bestNeighbour.evaluate();
+		}
+	}
+}
+\end{java}
+
+\vspace{1em}
+
+\subsection{Son implémentation}
+Cette fonction de recherche de meilleur voisin peut, et est, appliquée sur les deux séquences de batchs, à la fois celle de production et celle de livraison. Cela nous donne deux fois plus de chances de trouver une meilleure solution.
+
+\begin{java}
+public Solution getBestNeighbour(Solution sol) {
+	Solution temp = new Solution(pb);
+	Random r = new Random();
+	bestNeighbour.evaluate();
+	
+	//Verifier tous les voisins :
+	
+	//Cote production
+	getBestProductionNeighbour(sol, temp, r);
+	//Cote delivery
+	getBestDeliveryNeighbour(sol, temp, r);
+	
+	return bestNeighbour;
+}
+\end{java}
+
+\vspace{1em}
+
+Après l'implémentation de cette partie de programme nous avons pu constater une vraie différence d'efficacité dans nos recherches de solutions. En effet, là où, avant, nous n'avions que peut-être une solution sur quatre qui était particulièrement bonne, nous avons remarqué que désormais l'écart-type entre les meilleures solutions trouvées était beaucoup plus petite, et la valeur moyenne était plus optimale. C'est donc une étape cruciale de notre programme que l'amélioration par tâtonnement.
