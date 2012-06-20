@@ -1,0 +1,40 @@
+#!/bin/bash
+
+instance=""
+temps=""
+generations=""
+population=""
+
+while [ ${#instance} -eq 0 ]
+do
+	echo "Instance à exécuter :"
+	read instance
+done
+
+echo "Entrez le temps d'exécution (ou laissez vide pour le paramètre unchanged) :"
+read temps
+
+if [ ${#temps} -eq 0 ] ; then
+	while [ ${#unchanged} -eq 0 ]
+	do
+		echo "Entrez la valeur du paramètre unchanged :"
+		read unchanged
+	done
+else
+	unchanged=0
+fi
+
+while [ ${#generations} -eq 0 ]
+do
+	echo "Nombre de générations pour l'algorithme évolutif :"
+	read generations
+done
+
+while [ ${#population} -eq 0 ]
+do
+	echo "Taille de la population pour l'algorithme évolutif :"
+	read population
+done
+
+echo "java Main $instance $temps $unchanged $generations $population"
+java Main $instance $temps $unchanged $generations $population
