@@ -30,18 +30,18 @@ public class Main
 {
 	public static void main(String[] args)
 	{
-		String problem_file = "data/problem-011-200.txt";
+		String problem_file = "data/problem-012-100.txt";
 		
 		//Stop conditions.
 		//Set exectime to 0.0 to use the number of loop with unchanged best solution as stop condition.
-		double exectime = 0.0; //seconds
+		double exectime = 15.0; //seconds
 		int unchanged_max = 25;
 		
 		//Evolutionary algorithm.
 		int generations_nbr = 30000;
 		int population_size = 150;
-		double mutation_rate = 0.01;
-		double crossbreed_rate = 0.5;
+		double mutation_rate = 0.3;
+		double crossbreed_rate = 0.8;
 		//End of user configurable settings.
 		
 		

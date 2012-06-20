@@ -21,17 +21,20 @@ public void randomize() {
 		j = r.nextInt(i) + 1;
 		i -= j;
 	
-		addDeliveryLast(j);
+		if(j<=slpb.getTransporter().capacity) {
+			i -= j;
+			addDeliveryLast(j);
+		}
 	}
 	//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
 }
 \end{java}
 \vspace{1em}
-Cette fonction a pour but de générer simplement une solution aléatoire. On peut l'évaluer ensuite avec la fonction \verb!evaluate()! qui était donné dans le code original.
+Cette fonction a pour but de générer simplement une solution aléatoire. On peut l'évaluer ensuite avec la fonction \verb!evaluate()! qui était donné dans le code original. Le seul test fait ici est de faire en sorte que les batchs de livraison de soient pas plus grands que la capacité du transporteur.
 \vspace{2em}
 
 \subsection{Aléatoire "contrôlé"}
-Par la suite, au fur et à mesure des tests de cette fonction, nous avons pris conscience de la puissance de la générations aléatoire. En effet, plusieurs itérations du problème avec cette seule fonction de génération aléatoire nous donnaient quelques solutions pas trop mauvaises pour de petites instances. Nous nous sommes alors dit qu'il serait intéressant d'implémenter un algorithme évolutionniste, dont un des grands composants est l'Aléatoire. Mais avant cela, nous avons élaborer une seconde fonction de génération, qui génère des solutions dont le nombre de batchs est plus élevé.
+Par la suite, au fur et à mesure des tests de cette fonction, nous avons pris conscience de la puissance de la générations aléatoire. En effet, plusieurs itérations du problème avec cette seule fonction de génération aléatoire nous donnaient quelques solutions pas trop mauvaises pour de petites instances. Nous nous sommes alors dit qu'il serait intéressant d'implémenter un algorithme évolutionniste, dont un des grands composants est l'Aléatoire. Mais avant cela, nous avons élaborer une seconde fonction de génération, qui génère des solutions dont le nombre de batchs est plus élevé, et donc la quantité par batch plus petite.
 
 \begin{java}
 public void randomize2() {
@@ -61,8 +64,10 @@ public void randomize2() {
 			i = nb_products - current_products;
 		}
 		
-		addDeliveryLast(i);
-		current_products += i;
+		if(i<=slpb.getTransporter().capacity) {
+			addDeliveryLast(i);
+			current_products += i;
+		}
 	}
 	
 	//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());

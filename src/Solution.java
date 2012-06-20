@@ -121,9 +121,10 @@ public class Solution {
 		while (i != 0) {
 			Random r = new Random();
 			j = r.nextInt(i) + 1;
-			i -= j;
-			
-			addDeliveryLast(j);
+			if(j<=slpb.getTransporter().capacity) {
+				i -= j;
+				addDeliveryLast(j);
+			}
 		}
 		
 		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());
@@ -161,9 +162,10 @@ public class Solution {
 			if (current_products + i > nb_products) {
 				i = nb_products - current_products;
 			}
-			
-			addDeliveryLast(i);
-			current_products += i;
+			if(i<=slpb.getTransporter().capacity) {
+				addDeliveryLast(i);
+				current_products += i;
+			}
 		}
 		
 		//System.out.println(productionSequenceMT + "|" + deliverySequenceMT + " => " + evaluate());

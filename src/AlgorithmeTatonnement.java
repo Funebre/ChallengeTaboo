@@ -29,17 +29,14 @@ public class AlgorithmeTatonnement {
 	
 	public void getBestProductionNeighbour(Solution sol, Solution temp, Random r) {
 		int size = sol.getNumberOfProducedBatches();
-		//System.out.println("Initial solution : " + sol.productionSequenceMT + " | " + sol.deliverySequenceMT + " => " + sol.evaluate());
 		
 		temp.deliverySequenceMT = (Vector<Batch>)sol.deliverySequenceMT.clone();
 		
 		for (int i = 0; i < size; ++i) {
-			//Copy solution into temp (ultra-sauvage)
 			temp.productionSequenceMT = (Vector<Batch>)sol.productionSequenceMT.clone();
 
 			//Subtract 1 from the i-th batch
 			int k = sol.getProductionBatchSize(i);
-			//System.out.println("Quantity in batch to decrement : " + k);
 			if (size == 1) {
 				temp.setProductionBatchSize(i, k - 1);
 				temp.addProductionLast(0);
@@ -57,13 +54,9 @@ public class AlgorithmeTatonnement {
 			}
 			
 			//Add it to another batch
-			//System.out.println("Rank to increment a batch to compensate : " + k);
 			int qte = temp.getProductionBatchSize(k);
 			temp.setProductionBatchSize(k, qte + 1);
 			
-			//Afficher
-			//System.out.println("Resulting solution : " + temp.productionSequenceMT + " | " + temp.deliverySequenceMT + " => " + temp.evaluate());
-			//System.out.println();
 			//Test the resulting solution
 			if (temp.evaluate() < bestNeighbour.evaluation) {
 				bestNeighbour.productionSequenceMT = (Vector<Batch>)temp.productionSequenceMT.clone();
@@ -75,17 +68,14 @@ public class AlgorithmeTatonnement {
 	
 	public void getBestDeliveryNeighbour(Solution sol, Solution temp, Random r) {
 		int size = sol.getNumberOfDeliveredBatches();
-		//System.out.println("Initial solution : " + sol.productionSequenceMT + " | " + sol.deliverySequenceMT + " => " + sol.evaluate());
 		
 		temp.productionSequenceMT = (Vector<Batch>)sol.productionSequenceMT.clone();
 		
 		for (int i = 0; i < size; ++i) {
-			//Copy solution into temp (ultra-sauvage)
 			temp.deliverySequenceMT = (Vector<Batch>)sol.deliverySequenceMT.clone();
 			
 			//Subtract 1 from the i-th batch
 			int k = sol.getDeliveryBatchSize(i);
-			//System.out.println("Quantity in batch to decrement : " + k);
 			if (size == 1) {
 				temp.setDeliveryBatchSize(i, k - 1);
 				temp.addDeliveryLast(0);
@@ -103,13 +93,12 @@ public class AlgorithmeTatonnement {
 			}
 			
 			//Add it to another batch
-			//System.out.println("Rank to increment a batch to compensate : " + k);
+			while(temp.getDeliveryBatchSize(k) == temp.slpb.getTransporter().capacity) {
+				k=r.nextInt(size);
+			}
 			int qte = temp.getDeliveryBatchSize(k);
 			temp.setDeliveryBatchSize(k, qte + 1);
 			
-			//Afficher
-			//System.out.println("Resulting solution : " + temp.productionSequenceMT + " | " + temp.deliverySequenceMT + " => " + temp.evaluate());
-			//System.out.println();
 			//Test the resulting solution
 			if (temp.evaluate() < bestNeighbour.evaluation) {
 				//If better, copy temp to bestNeighbour

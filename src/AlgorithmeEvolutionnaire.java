@@ -69,10 +69,10 @@ public class AlgorithmeEvolutionnaire {
 		Solution newChild1 = new Solution(mother);
 		Solution newChild2 = new Solution(father);
 		
-		//production of father in newChild1
+		//production of mother in newChild1
 		newChild1.setProductionSequenceMT((Vector) father.getProductionSequenceMT().clone());
 		
-		//production of mother in newChild2
+		//production of father in newChild2
 		newChild2.setProductionSequenceMT((Vector) mother.getProductionSequenceMT().clone());
 		
 		//if the're better solutions than their parents, replace

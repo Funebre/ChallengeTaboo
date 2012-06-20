@@ -40,6 +40,18 @@ public void getBestxxxNeighbour(Solution sol, Solution temp, Random r) {
 
 \vspace{1em}
 
+Évidemment, la partie sur la livraison prend en compte la capacité du transporteur via les test suivant.
+
+\begin{java}
+while(temp.getDeliveryBatchSize(k) == temp.slpb.getTransporter().capacity) {
+	k=r.nextInt(size);
+}
+int qte = temp.getDeliveryBatchSize(k);
+temp.setDeliveryBatchSize(k, qte + 1);
+\end{java}
+
+\vspace{1em}
+
 \subsection{Son implémentation}
 Cette fonction de recherche de meilleur voisin peut, et est, appliquée sur les deux séquences de batchs, à la fois celle de production et celle de livraison. Cela nous donne deux fois plus de chances de trouver une meilleure solution.
 
