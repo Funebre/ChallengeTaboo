@@ -93,14 +93,14 @@ public class AlgorithmeTatonnement {
 			}
 			
 			//Add it to another batch
-			while(temp.getDeliveryBatchSize(k) == temp.slpb.getTransporter().capacity) {
-				k=r.nextInt(size);
+			while (temp.getDeliveryBatchSize(k) == temp.slpb.getTransporter().getCapacity()) {
+				k = r.nextInt(size);
 			}
 			int qte = temp.getDeliveryBatchSize(k);
 			temp.setDeliveryBatchSize(k, qte + 1);
 			
 			//Test the resulting solution
-			if (temp.evaluate() < bestNeighbour.evaluation) {
+			if (temp.evaluate() < bestNeighbour.getEvaluation()) {
 				//If better, copy temp to bestNeighbour
 				bestNeighbour.productionSequenceMT = (Vector<Batch>)temp.productionSequenceMT.clone();
 				bestNeighbour.deliverySequenceMT = (Vector<Batch>)temp.deliverySequenceMT.clone();

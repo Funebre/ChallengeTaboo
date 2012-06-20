@@ -19,7 +19,6 @@ public void randomize() {
 	while (i != 0) {
 		Random r = new Random();
 		j = r.nextInt(i) + 1;
-		i -= j;
 	
 		if(j<=slpb.getTransporter().capacity) {
 			i -= j;

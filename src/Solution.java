@@ -121,7 +121,7 @@ public class Solution {
 		while (i != 0) {
 			Random r = new Random();
 			j = r.nextInt(i) + 1;
-			if(j<=slpb.getTransporter().capacity) {
+			if (j <= slpb.getTransporter().getCapacity()) {
 				i -= j;
 				addDeliveryLast(j);
 			}
@@ -162,7 +162,8 @@ public class Solution {
 			if (current_products + i > nb_products) {
 				i = nb_products - current_products;
 			}
-			if(i<=slpb.getTransporter().capacity) {
+			
+			if (i <= slpb.getTransporter().getCapacity()) {
 				addDeliveryLast(i);
 				current_products += i;
 			}
