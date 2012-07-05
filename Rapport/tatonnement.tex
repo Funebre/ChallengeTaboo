@@ -25,9 +25,6 @@ public void getBestxxxNeighbour(Solution sol, Solution temp, Random r) {
 		
 		temp.evaluate();
 		
-		//Afficher
-		//System.out.println("Resulting solution : " + temp.productionSequenceMT + " | " + 			temp.deliverySequenceMT + " => " + temp.evaluate());
-		//System.out.println();
 		//Test the resulting solution
 		if (temp.evaluation < bestNeighbour.evaluation) {
 			bestNeighbour.productionSequenceMT = (Vector<Batch>)temp.productionSequenceMT.clone();
